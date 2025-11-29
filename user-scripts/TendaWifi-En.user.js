@@ -3,6 +3,7 @@
 // @description  Translation of the router settings page
 // @icon         http://tendawifi.com/favicon.ico
 // @match        *tendawifi.com/*
+// @downloadURL  https://skyfalconua.github.io/user-scripts/TendaWifi-En.user.js
 // @license      MIT
 // ==/UserScript==
 

@@ -3,6 +3,7 @@
 // @icon         https://easypay.ua/favicon.ico
 // @match        https://easypay.ua/ua/profile/history
 // @downloadURL  https://skyfalconua.github.io/user-scripts/easypaytotalsum.user.js
+// @license      MIT
 // ==/UserScript==
 
 (function() {

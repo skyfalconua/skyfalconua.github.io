@@ -7,6 +7,7 @@
 // @match        *192.168.0.1/*
 // @match        *miwifi.com/*
 // @downloadURL  https://skyfalconua.github.io/user-scripts/miwifi-ukr.user.js
+// @license      MIT
 // ==/UserScript==
 
 // Based on
