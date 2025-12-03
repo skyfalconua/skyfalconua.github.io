@@ -1,18 +1,21 @@
 #!/bin/sh
 _remotedevmachinesetup() {
-  local distribid=`grep DISTRIB_ID /etc/*-release | awk -F '=' '{print tolower($2)}'`
-  if [ "$distribid" = 'ubuntu' ]; then
-    sudo apt install -y curl git zsh tmux mc htop fzf ripgrep nano
+  local sudox=$(test $(id -u) -ne 0 && echo sudo)
+
+  . /etc/os-release
+  if [ "$ID" = 'ubuntu' ] || [ "$ID" = 'debian' ]; then
+    $sudox apt update
+    $sudox apt install -y git zsh tmux mc htop fzf ripgrep nano
   fi
 
   curl https://skyfalconua.github.io/dotfiles | sh
-  curl https://skyfalconua.github.io/fzf | sudo sh
-  curl https://skyfalconua.github.io/micro | sudo sh
-  curl https://skyfalconua.github.io/yazi | sudo sh
-  curl https://skyfalconua.github.io/gitdelta | sudo sh
-  curl https://skyfalconua.github.io/zoxide | sudo sh
-  curl https://skyfalconua.github.io/fd | sudo sh
-  curl https://skyfalconua.github.io/sd | sudo sh
+  curl https://skyfalconua.github.io/fzf | $sudox sh
+  curl https://skyfalconua.github.io/micro | $sudox sh
+  curl https://skyfalconua.github.io/yazi | $sudox sh
+  curl https://skyfalconua.github.io/gitdelta | $sudox sh
+  curl https://skyfalconua.github.io/zoxide | $sudox sh
+  curl https://skyfalconua.github.io/fd | $sudox sh
+  curl https://skyfalconua.github.io/sd | $sudox sh
 
   echo >> "$HOME/.bash_profile"
   echo "export TERM=xterm-256color" >> "$HOME/.bash_profile"
