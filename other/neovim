@@ -1,0 +1,31 @@
+#!/bin/sh
+_neovimfetch() {
+  if [ ! `whoami` = "root" ]; then
+    echo "error: must be run as root"; return
+  fi
+
+  local arch=""
+  case "$(uname -m)" in
+    x86_64)  arch="x86_64" ;;
+    aarch64) arch="arm64" ;;
+    *)       echo "error: unknown architecture"; return ;;
+  esac
+
+  local rel="https://api.github.com/repos/neovim/neovim/releases/latest"
+  local ver=`curl -s "${rel}" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/' | tr -d 'v'`
+  local pkgname="nvim-linux-${arch}"
+  local pkgurl="https://github.com/neovim/neovim/releases/download/v${ver}/${pkgname}.tar.gz"
+
+  mkdir -p /opt && cd /opt && \
+  curl -sL "${pkgurl}" | tar xz -C . && \
+  mv "${pkgname}" "neovim" && \
+  chmod 755 /opt/neovim/bin/nvim && \
+  ln -sfv /opt/neovim/bin/nvim /usr/bin/nvim && \
+  echo "created /usr/bin/nvim (v${ver})"
+
+  cd
+  git clone --depth 1 "https://github.com/skyfalconua/minimax-config.git" "$HOME/.config/nvim"
+
+  # note: check 'https://github.com/neovim/neovim-releases/releases' as well
+}
+_neovimfetch; unset _neovimfetch
