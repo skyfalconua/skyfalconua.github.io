@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Andrew Sokolov - tools, libs and snippets</title>
+    <meta
+      name="description"
+      content="Personal development dashboard showcasing public projects and tools"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/water.css@2/out/light.css"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap");
+
+      /* --- Root Styles --- */
+      body {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 15px;
+        font-family: "Open Sans", sans-serif;
+        font-weight: 500;
+        font-style: normal;
+        background-color: #f7fafc;
+      }
+
+      .container {
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* --- Header Section --- */
+
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        border-bottom: 1px solid var(--border, #dbdbdb);
+        padding-bottom: 15px;
+        margin-bottom: 5px;
+      }
+
+      .header-content {
+        display: flex;
+        gap: 20px;
+      }
+
+      .header-content img {
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+      }
+
+      .header-content h1 {
+        margin-bottom: 0.25rem;
+        font-size: 1.5rem;
+      }
+
+      .subtitle {
+        margin: 0;
+        line-height: 24px;
+      }
+
+      /* --- Content Wrapper --- */
+
+      @media (min-width: 992px) {
+        .content-wrapper {
+          display: flex;
+          gap: 25px;
+          align-items: flex-start;
+        }
+
+        .content-wrapper > * {
+          flex: 1;
+        }
+      }
+
+      /* --- Tree Section --- */
+
+      .tree-section {
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* --- Tree Category (details) --- */
+
+      details {
+        background-color: #f5f5f5;
+      }
+
+      /* --- Summary (details > summary) --- */
+
+      summary {
+        display: flex;
+        background-color: transparent;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+      }
+
+      summary:hover,
+      summary:focus {
+        text-decoration: none;
+      }
+
+      details:open summary,
+      summary:hover {
+        background-color: #ebebeb;
+      }
+
+      .details-categoty-title {
+        display: flex;
+        gap: 12px;
+      }
+
+      /* --- Tree Content --- */
+
+      .tree-content {
+        margin-left: 10px;
+        padding-left: 20px;
+        border-left: 1px dashed darkblue;
+      }
+
+      /* --- Tree Item --- */
+
+      .tree-item {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        margin-bottom: 12px;
+      }
+
+      .tree-item-content {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .tree-link {
+        color: inherit;
+      }
+
+      .tree-description {
+        font-size: 0.875rem;
+        color: #666;
+      }
+
+      /* --- Icons --- */
+
+      .icon {
+        width: 22px;
+        height: 22px;
+        flex-shrink: 0;
+      }
+
+      .icon-indicator3 {
+        width: 16px;
+        height: 16px;
+        line-height: 22px;
+      }
+
+      /* --- Utility Classes --- */
+
+      .row {
+        display: flex;
+        gap: 12px;
+      }
+    </style>
+    <svg style="display: none">
+      <defs>
+        <symbol
+          id="folderIconSymbol"
+          viewBox="0 0 202 168"
+          style="fill-rule: evenodd; clip-rule: evenodd; stroke-linejoin: round; stroke-miterlimit: 2"
+        >
+          <path
+            d="M155.235,130.062l-46.148,0c-4.62,0 -8.392,-3.776 -8.392,-8.391c0,-4.616 3.772,-8.391 8.392,-8.391l46.148,0c4.62,0 8.392,3.775 8.392,8.391c0,4.615 -3.772,8.391 -8.392,8.391Zm20.977,-109.084l-71.325,0c-1.425,0 -3.06,-2.56 -5.407,-6.419c-3.443,-5.79 -8.73,-14.559 -19.763,-14.559l-54.54,0c-13.177,0 -25.177,11.999 -25.177,25.173l0,117.476c0,12.922 12.255,25.174 25.177,25.174l151.035,0c12.922,0 25.178,-12.251 25.178,-25.174l0,-96.497c0,-12.922 -12.255,-25.173 -25.178,-25.173Z"
+            style="fill: #f7c800; fill-rule: nonzero"
+          >
+          </path>
+          <path
+            d="M163.627,121.671c0,4.615 -3.772,8.391 -8.392,8.391l-46.148,0c-4.62,0 -8.392,-3.776 -8.392,-8.391c0,-4.616 3.772,-8.391 8.392,-8.391l46.148,0c4.62,0 8.392,3.775 8.392,8.391Z"
+            style="fill: #f7d331; fill-rule: nonzero"
+          >
+          </path>
+        </symbol>
+        <symbol
+          id="itemIconSymbol"
+          viewBox="0 0 168 202"
+          style="fill-rule: evenodd; clip-rule: evenodd; stroke-linejoin: round; stroke-miterlimit: 2"
+        >
+          <path
+            d="M125.865,67.133c-13.883,0 -25.17,-11.288 -25.17,-25.178l0,-41.955l-75.525,0c-13.883,0 -25.17,11.288 -25.17,25.177l0,151.035c0,13.89 11.288,25.178 25.17,25.178l117.48,0c13.883,0 25.17,-11.288 25.17,-25.178l0,-109.08l-41.955,0Z"
+            style="fill: #c5cae9; fill-rule: nonzero"
+          >
+          </path>
+          <path
+            d="M167.82,60.795l0,6.337l-41.955,0c-13.883,0 -25.17,-11.288 -25.17,-25.178l0,-41.955l6.33,0c6.72,0 13.095,2.648 17.835,7.387l35.58,35.58c4.74,4.74 7.38,11.115 7.38,17.828Z"
+            style="fill: #6e6e78; fill-rule: nonzero"
+          >
+          </path>
+        </symbol>
+        <symbol
+          id="webIconSymbol"
+          viewBox="0 0 202 202"
+          style="fill-rule: evenodd; clip-rule: evenodd; stroke-linejoin: round; stroke-miterlimit: 2"
+        >
+          <path
+            d="M201.39,100.695c0,55.613 -45.082,100.695 -100.695,100.695c-55.612,0 -100.695,-45.082 -100.695,-100.695c0,-55.612 45.083,-100.695 100.695,-100.695c55.613,0 100.695,45.083 100.695,100.695Z"
+            style="fill: #1f3cb5; fill-rule: nonzero"
+          >
+          </path>
+          <path
+            d="M0.383,109.088c3.608,44.01 35.745,80.093 77.783,89.7c-21.023,-29.745 -32.475,-59.782 -34.32,-89.7l-43.463,0Z"
+            style="fill: #27a5e8; fill-rule: nonzero"
+          >
+          </path>
+          <path
+            d="M78.165,2.603c-42.038,9.607 -74.175,45.69 -77.783,89.7l43.463,0c1.845,-29.91 13.297,-59.955 34.32,-89.7Z"
+            style="fill: #27a5e8; fill-rule: nonzero"
+          >
+          </path>
+          <path
+            d="M60.668,109.088c2.1,30.375 15.487,61.17 40.027,91.965c24.547,-30.795 37.928,-61.59 40.028,-91.965l-80.055,0Z"
+            style="fill: #27a5e8; fill-rule: nonzero"
+          >
+          </path>
+          <path
+            d="M140.723,92.303c-2.1,-30.375 -15.48,-61.17 -40.028,-91.965c-24.54,30.795 -37.927,61.59 -40.027,91.965l80.055,0Z"
+            style="fill: #27a5e8; fill-rule: nonzero"
+          >
+          </path>
+          <path
+            d="M123.225,198.788c42.038,-9.607 74.175,-45.69 77.782,-89.7l-43.462,0c-1.845,29.918 -13.297,59.955 -34.32,89.7Z"
+            style="fill: #27a5e8; fill-rule: nonzero"
+          >
+          </path>
+          <path
+            d="M201.008,92.303c-3.607,-44.01 -35.745,-80.092 -77.782,-89.7c21.023,29.745 32.475,59.79 34.32,89.7l43.462,0Z"
+            style="fill: #27a5e8; fill-rule: nonzero"
+          >
+          </path>
+        </symbol>
+        <symbol
+          id="downloadIconSymbol"
+          viewBox="0 0 126 202"
+          style="fill-rule: evenodd; clip-rule: evenodd; stroke-linejoin: round; stroke-miterlimit: 2"
+        >
+          <path
+            d="M57,165.367c1.635,1.635 3.788,2.46 5.932,2.46c2.145,0 4.297,-0.825 5.932,-2.46l54.541,-54.54c3.277,-3.277 3.277,-8.588 0,-11.873c-3.27,-3.277 -8.588,-3.277 -11.865,0l-40.297,40.305c0.023,-0.27 0.082,-0.532 0.082,-0.803l0,-130.065c0,-4.635 -3.758,-8.393 -8.392,-8.393c-4.635,0 -8.392,3.758 -8.392,8.393l0,130.065c0,0.27 0.053,0.533 0.082,0.803l-40.297,-40.305c-3.277,-3.277 -8.595,-3.277 -11.865,0c-3.277,3.285 -3.277,8.595 0,11.873l54.54,54.54Z"
+            style="fill: #27a5e8; fill-rule: nonzero"
+          >
+          </path>
+          <path
+            d="M117.472,184.605l-109.08,0c-4.635,0 -8.392,3.758 -8.392,8.393c0,4.635 3.757,8.393 8.392,8.393l109.08,0c4.635,0 8.392,-3.758 8.392,-8.393c0,-4.635 -3.757,-8.393 -8.392,-8.393Z"
+            style="fill: #6e6e78; fill-rule: nonzero"
+          >
+          </path>
+        </symbol>
+        <symbol
+          id="indicator3IconSymbol"
+          viewBox="0 0 126 168"
+          style="fill-rule: evenodd; clip-rule: evenodd; stroke-linejoin: round; stroke-miterlimit: 2"
+        >
+          <path
+            d="M56.998,165.367c1.635,1.635 3.788,2.46 5.932,2.46c2.145,0 4.297,-0.825 5.932,-2.46l54.541,-54.54c3.277,-3.277 3.277,-8.588 0,-11.873c-3.27,-3.277 -8.588,-3.277 -11.865,0l-40.297,40.305c0.023,-0.27 0.082,-0.532 0.082,-0.803l0,-130.065c0,-4.635 -3.758,-8.393 -8.392,-8.393c-4.635,0 -8.392,3.758 -8.392,8.393l0,130.065c0,0.27 0.053,0.533 0.082,0.803l-40.297,-40.305c-3.277,-3.277 -8.595,-3.277 -11.865,0c-3.277,3.285 -3.277,8.595 0,11.873l54.54,54.54Z"
+            style="fill: #6e6e78; fill-rule: nonzero"
+          >
+          </path>
+        </symbol>
+        <symbol
+          id="applicationIconSymbol"
+          viewBox="0 0 202 168"
+          style="fill-rule: evenodd; clip-rule: evenodd; stroke-linejoin: round; stroke-miterlimit: 2"
+        >
+          <path
+            d="M38.22,142.648l124.95,0c14.138,0 25.635,-11.496 25.635,-25.635l0,-91.379c0,-14.139 -11.497,-25.634 -25.635,-25.634l-124.95,0c-14.138,0 -25.628,11.495 -25.628,25.634l0,91.379c0,14.139 11.49,25.635 25.628,25.635Z"
+            style="fill: #27a5e8; fill-rule: nonzero"
+          >
+          </path>
+          <path
+            d="M192.998,151.039l-184.605,0c-4.635,0 -8.393,3.757 -8.393,8.391c0,4.634 3.758,8.391 8.393,8.391l184.605,0c4.635,0 8.392,-3.757 8.392,-8.391c0,-4.634 -3.758,-8.391 -8.392,-8.391Z"
+            style="fill: #6e6e78; fill-rule: nonzero"
+          >
+          </path>
+        </symbol>
+        <symbol
+          id="settingsIconSymbol"
+          viewBox="0 0 202 202"
+          style="fill-rule: evenodd; clip-rule: evenodd; stroke-linejoin: round; stroke-miterlimit: 2"
+        >
+          <path
+            d="M100.695,142.65c-23.115,0 -41.955,-18.832 -41.955,-41.955c0,-23.115 18.84,-41.955 41.955,-41.955c23.115,0 41.955,18.84 41.955,41.955c0,23.123 -18.84,41.955 -41.955,41.955Zm98.977,-60.33c-0.758,-4.027 -4.282,-6.795 -8.227,-6.795l-15.105,0c-1.215,-3.607 -2.64,-7.095 -4.365,-10.492l10.703,-10.74c0.045,0 0.045,0 0.045,-0.037c2.768,-2.812 3.27,-7.26 0.923,-10.658c-7.013,-10.155 -15.698,-18.839 -25.845,-25.845c-3.397,-2.355 -7.845,-1.845 -10.657,0.922c-0.045,0 -0.045,0 -0.045,0.037l-10.74,10.703c-3.398,-1.718 -6.878,-3.151 -10.485,-4.366l0,-15.105c0,-4.11 -2.94,-7.508 -6.84,-8.22c-5.873,-1.132 -12.082,-1.725 -18.337,-1.725c-6.248,0 -12.458,0.593 -18.33,1.725c-3.907,0.713 -6.84,4.11 -6.84,8.22l0,15.105c-3.608,1.215 -7.095,2.647 -10.492,4.366l-10.74,-10.703c0,-0.037 0,-0.037 -0.045,-0.037c-2.805,-2.768 -7.253,-3.277 -10.65,-0.922c-10.155,7.006 -18.84,15.69 -25.845,25.845c-2.355,3.398 -1.845,7.845 0.922,10.658c0,0.037 0,0.037 0.038,0.037l10.703,10.74c-1.725,3.397 -3.15,6.885 -4.365,10.492l-15.105,0c-3.945,0 -7.47,2.768 -8.22,6.795c-1.133,5.873 -1.725,12.082 -1.725,18.375c0,6.293 0.593,12.502 1.725,18.375c0.75,3.99 4.275,6.803 8.22,6.803l15.105,0c1.215,3.607 2.64,7.088 4.365,10.485l-10.703,10.74c-1.59,1.598 -2.475,3.735 -2.475,5.963c0,1.635 0.503,3.27 1.515,4.74c7.005,10.147 15.69,18.832 25.845,25.845c1.463,1.005 3.143,1.508 4.778,1.508c2.182,0 4.282,-0.877 5.917,-2.52l0,0.045l10.74,-10.695c3.398,1.718 6.885,3.143 10.492,4.357l0,15.105c0,3.945 2.767,7.47 6.795,8.22c5.873,1.14 12.083,1.725 18.375,1.725c6.292,0 12.502,-0.585 18.375,-1.725c4.027,-0.75 6.803,-4.275 6.803,-8.22l0,-15.105c3.607,-1.215 7.087,-2.64 10.485,-4.357l10.74,10.695l0,-0.045c1.635,1.643 3.735,2.52 5.918,2.52c1.635,0 3.315,-0.502 4.785,-1.508c10.148,-7.012 18.833,-15.697 25.845,-25.845c1.005,-1.47 1.508,-3.105 1.508,-4.74c0,-2.228 -0.878,-4.365 -2.475,-5.963l-10.703,-10.74c1.725,-3.397 3.15,-6.877 4.365,-10.485l15.105,0c3.945,0 7.47,-2.812 8.227,-6.803c1.133,-5.873 1.718,-12.082 1.718,-18.375c0,-6.293 -0.585,-12.502 -1.718,-18.375Z"
+            style="fill: #c5cae9; fill-rule: nonzero"
+          >
+          </path>
+          <path
+            d="M100.695,125.873c-13.883,0 -25.17,-11.287 -25.17,-25.178c0,-13.883 11.288,-25.17 25.17,-25.17c13.89,0 25.178,11.287 25.178,25.17c0,13.89 -11.288,25.178 -25.178,25.178Zm0,-67.133c-23.115,0 -41.955,18.84 -41.955,41.955c0,23.123 18.84,41.955 41.955,41.955c23.115,0 41.955,-18.832 41.955,-41.955c0,-23.115 -18.84,-41.955 -41.955,-41.955Z"
+            style="fill: #6e6e78; fill-rule: nonzero"
+          >
+          </path>
+          <path
+            d="M125.873,100.695c0,13.89 -11.288,25.178 -25.178,25.178c-13.883,0 -25.17,-11.287 -25.17,-25.178c0,-13.883 11.288,-25.17 25.17,-25.17c13.89,0 25.178,11.287 25.178,25.17Z"
+            style="fill: #27a5e8; fill-rule: nonzero"
+          >
+          </path>
+        </symbol>
+        <symbol
+          id="libraryIconSymbol"
+          viewBox="0 0 168 177"
+          style="fill-rule: evenodd; clip-rule: evenodd; stroke-linejoin: round; stroke-miterlimit: 2"
+        >
+          <path
+            d="M117.472,58.737l-67.125,0c-4.612,0 -8.392,-3.775 -8.392,-8.391c0,-4.615 3.78,-8.391 8.392,-8.391l67.125,0c4.62,0 8.392,3.776 8.392,8.391c0,4.616 -3.773,8.391 -8.392,8.391Zm0,37.76l-67.125,0c-4.612,0 -8.392,-3.776 -8.392,-8.391c0,-4.615 3.78,-8.391 8.392,-8.391l67.125,0c4.62,0 8.392,3.776 8.392,8.391c0,4.615 -3.773,8.391 -8.392,8.391Zm-33.562,37.76l-33.562,0c-4.612,0 -8.392,-3.776 -8.392,-8.391c0,-4.616 3.78,-8.391 8.392,-8.391l33.562,0c4.62,0 8.392,3.775 8.392,8.391c0,4.615 -3.773,8.391 -8.392,8.391Zm58.74,-134.257l-117.472,0c-13.89,0 -25.177,11.286 -25.177,25.173l0,125.867c0,13.887 11.287,25.173 25.177,25.173l117.472,0c13.89,0 25.17,-11.286 25.17,-25.173l0,-125.867c0,-13.887 -11.28,-25.173 -25.17,-25.173Z"
+            style="fill: #c5cae9; fill-rule: nonzero"
+          >
+          </path>
+          <path
+            d="M92.302,125.866c0,4.615 -3.773,8.391 -8.392,8.391l-33.562,0c-4.612,0 -8.392,-3.776 -8.392,-8.391c0,-4.616 3.78,-8.391 8.392,-8.391l33.562,0c4.62,0 8.392,3.775 8.392,8.391Z"
+            style="fill: #fff; fill-rule: nonzero"
+          >
+          </path>
+          <path
+            d="M125.865,88.106c0,4.615 -3.773,8.391 -8.392,8.391l-67.125,0c-4.612,0 -8.392,-3.776 -8.392,-8.391c0,-4.615 3.78,-8.391 8.392,-8.391l67.125,0c4.62,0 8.392,3.776 8.392,8.391Z"
+            style="fill: #fff; fill-rule: nonzero"
+          >
+          </path>
+          <path
+            d="M125.865,50.346c0,4.616 -3.773,8.391 -8.392,8.391l-67.125,0c-4.612,0 -8.392,-3.775 -8.392,-8.391c0,-4.615 3.78,-8.391 8.392,-8.391l67.125,0c4.62,0 8.392,3.776 8.392,8.391Z"
+            style="fill: #fff; fill-rule: nonzero"
+          >
+          </path>
+        </symbol>
+      </defs>
+    </svg>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div class="header-content">
+          <img
+            src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofHh0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/2wBDAQkJCQwLDBgNDRgyIRwhMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjL/wAARCAAgACADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD2AOazdV1ySwHlW1mbu4wGKF9gVTnBzg9x0q6GFcb4weWK6jcX5tt6gJsg3FgOo79Mk8diB9eKTaWh20oqUrM6fStYkvRsu7IW0xBZEEokDKMAnIAwckcH/HFuWGGZsyQRt7sgNch4Vm8y8bbfPcEZJEiBSsZ6AY+qn/DpXX7uKINtairRUJWRVVyeB1rhfHV/5l3aWkRXzAksisehA2D1zjk9u3tVnVvEZjvhYwyMm0MW2EjdhScE/l+H51ztx4m0+a8lhkuY28lApZ25Lbm3jJ4xwvTrkmnytkxlyu5Y0G7+whpbm88iaJQGCMFYDjqvcc5wQegr0LTJ55dMilnbe/KmTy9m7B64ycZH59eM4Hm2gXOmjUNTa2lgc+dvQIVOFMaZI74zkfU10Wl69MtyLaRiY8MuDzxndnA/L8Pwp8thSnzu7P/Z"
+            alt="avatar"
+          /><p class="subtitle">Andrew Sokolov - tools, libs and snippets</p>
+        </div>
+      </header>
+      <div class="content-wrapper">
+        <section>
+          <section class="tree-section">
+            <details open>
+              <summary>
+                <span class="details-categoty-title"><svg
+                    class="icon icon-folder"
+                  >
+                    <use href="#folderIconSymbol"></use>
+                  </svg> My Configs</span><svg class="icon icon-indicator3">
+                  <use href="#indicator3IconSymbol"></use>
+                </svg>
+              </summary>
+              <div class="tree-content">
+                <div class="tree-item">
+                  <svg class="icon icon-settings">
+                    <use href="#settingsIconSymbol"></use>
+                  </svg>
+                  <div class="tree-item-content">
+                    <a href="https://github.com/skyfalconua/dotfiles"
+                    >dotfiles</a><div class="tree-description">
+                      My shell and apps configs for dev environments
+                    </div>
+                  </div>
+                </div>
+                <div class="tree-item">
+                  <svg class="icon icon-settings">
+                    <use href="#settingsIconSymbol"></use>
+                  </svg>
+                  <div class="tree-item-content">
+                    <a href="https://github.com/skyfalconua/minimax-config"
+                    >neovim config</a><div class="tree-description">
+                      Neovim and terminal configuration files
+                    </div>
+                  </div>
+                </div>
+                <div class="tree-item">
+                  <svg class="icon icon-settings">
+                    <use href="#settingsIconSymbol"></use>
+                  </svg>
+                  <div class="tree-item-content">
+                    <a href="https://github.com/skyfalconua/gimp-config"
+                    >Gimp config</a><div class="tree-description">
+                      GIMP image editor configuration and plugins
+                    </div>
+                  </div>
+                </div>
+                <div class="tree-item">
+                  <svg class="icon icon-settings">
+                    <use href="#settingsIconSymbol"></use>
+                  </svg>
+                  <div class="tree-item-content">
+                    <a href="https://github.com/skyfalconua/windev"
+                    >windev</a><div class="tree-description">
+                      Windows dev environment setup and configuration scripts
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </details>
+            <details open>
+              <summary>
+                <span class="details-categoty-title"><svg
+                    class="icon icon-folder"
+                  >
+                    <use href="#folderIconSymbol"></use>
+                  </svg> TamperMonkey Browser UserScripts</span><svg
+                  class="icon icon-indicator3"
+                >
+                  <use href="#indicator3IconSymbol"></use>
+                </svg>
+              </summary>
+              <div class="tree-content">
+                <div class="tree-item">
+                  <svg class="icon icon-web">
+                    <use href="#webIconSymbol"></use>
+                  </svg>
+                  <div class="tree-item-content">
+                    <a
+                      href="https://skyfalconua.github.io/user-scripts/VSIX-Downloader.user.js"
+                    >VSIX-Downloader.user.js</a><div class="tree-description">
+                      Userscript for downloading VSIX files
+                    </div>
+                  </div>
+                </div>
+                <div class="tree-item">
+                  <svg class="icon icon-web">
+                    <use href="#webIconSymbol"></use>
+                  </svg>
+                  <div class="tree-item-content">
+                    <a
+                      href="https://skyfalconua.github.io/user-scripts/TendaWifi-DevicesListHelper.user.js"
+                    >TendaWifi-DevicesListHelper.user.js</a><div
+                      class="tree-description"
+                    >
+                      Userscript for Tenda WiFi device list helper
+                    </div>
+                  </div>
+                </div>
+                <div class="tree-item">
+                  <svg class="icon icon-web">
+                    <use href="#webIconSymbol"></use>
+                  </svg>
+                  <div class="tree-item-content">
+                    <a
+                      href="https://skyfalconua.github.io/user-scripts/TendaWifi-En.user.js"
+                    >TendaWifi-En.user.js</a><div class="tree-description">
+                      Userscript for Tenda WiFi English interface
+                    </div>
+                  </div>
+                </div>
+                <div class="tree-item">
+                  <svg class="icon icon-web">
+                    <use href="#webIconSymbol"></use>
+                  </svg>
+                  <div class="tree-item-content">
+                    <a
+                      href="https://skyfalconua.github.io/user-scripts/miwifi-ukr.user.js"
+                    >miwifi-ukr.user.js</a><div class="tree-description">
+                      Userscript for Mi WiFi Ukrainian interface
+                    </div>
+                  </div>
+                </div>
+                <div class="tree-item">
+                  <svg class="icon icon-web">
+                    <use href="#webIconSymbol"></use>
+                  </svg>
+                  <div class="tree-item-content">
+                    <a
+                      href="https://skyfalconua.github.io/user-scripts/miwifi-rus.user.js"
+                    >miwifi-rus.user.js</a><div class="tree-description">
+                      Userscript for Mi WiFi Russian interface
+                    </div>
+                  </div>
+                </div>
+                <div class="tree-item">
+                  <svg class="icon icon-web">
+                    <use href="#webIconSymbol"></use>
+                  </svg>
+                  <div class="tree-item-content">
+                    <a
+                      href="https://skyfalconua.github.io/user-scripts/easypaytotalsum.user.js"
+                    >easypaytotalsum.user.js</a><div class="tree-description">
+                      EasyPay.ua - Calculate total sum calculation on history
+                      page
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </details>
+            <details>
+              <summary>
+                <span class="details-categoty-title"><svg
+                    class="icon icon-folder"
+                  >
+                    <use href="#folderIconSymbol"></use>
+                  </svg> scripts</span><svg class="icon icon-indicator3">
+                  <use href="#indicator3IconSymbol"></use>
+                </svg>
+              </summary>
+              <div class="tree-content">
+                <div class="tree-item">
+                  <svg class="icon icon-item">
+                    <use href="#itemIconSymbol"></use>
+                  </svg>
+                  <div class="tree-item-content">
+                    <a
+                      href="https://github.com/skyfalconua/snippets/tree/main/scripts/build_pyegg"
+                    >build_pyegg</a><div class="tree-description">
+                      Python egg building utility script
+                    </div>
+                  </div>
+                </div>
+                <div class="tree-item">
+                  <svg class="icon icon-item">
+                    <use href="#itemIconSymbol"></use>
+                  </svg>
+                  <div class="tree-item-content">
+                    <a
+                      href="https://github.com/skyfalconua/snippets/tree/main/scripts/check_balance"
+                    >check_balance</a><div class="tree-description">
+                      Balance checking utility script
+                    </div>
+                  </div>
+                </div>
+                <div class="tree-item">
+                  <svg class="icon icon-item">
+                    <use href="#itemIconSymbol"></use>
+                  </svg>
+                  <div class="tree-item-content">
+                    <a
+                      href="https://github.com/skyfalconua/snippets/tree/main/scripts/mozilla_firefox"
+                    >mozilla_firefox</a><div class="tree-description">
+                      Firefox automation and management script
+                    </div>
+                  </div>
+                </div>
+                <div class="tree-item">
+                  <svg class="icon icon-item">
+                    <use href="#itemIconSymbol"></use>
+                  </svg>
+                  <div class="tree-item-content">
+                    <a
+                      href="https://github.com/skyfalconua/snippets/tree/main/scripts/shell-tools"
+                    >shell-tools</a><div class="tree-description">
+                      Shell utility tools and helpers
+                    </div>
+                  </div>
+                </div>
+                <div class="tree-item">
+                  <svg class="icon icon-item">
+                    <use href="#itemIconSymbol"></use>
+                  </svg>
+                  <div class="tree-item-content">
+                    <a
+                      href="https://github.com/skyfalconua/snippets/tree/main/scripts/tools"
+                    >tools</a><div class="tree-description">
+                      General-purpose utility scripts
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </details>
+            <details>
+              <summary>
+                <span class="details-categoty-title"><svg
+                    class="icon icon-folder"
+                  >
+                    <use href="#folderIconSymbol"></use>
+                  </svg> langs</span><svg class="icon icon-indicator3">
+                  <use href="#indicator3IconSymbol"></use>
+                </svg>
+              </summary>
+              <div class="tree-content">
+                <div class="tree-item">
+                  <svg class="icon icon-item">
+                    <use href="#itemIconSymbol"></use>
+                  </svg>
+                  <div class="tree-item-content">
+                    <a
+                      href="https://github.com/skyfalconua/snippets/tree/main/langs/js"
+                    >js</a><div class="tree-description">
+                      JavaScript programming language snippets
+                    </div>
+                  </div>
+                </div>
+                <div class="tree-item">
+                  <svg class="icon icon-item">
+                    <use href="#itemIconSymbol"></use>
+                  </svg>
+                  <div class="tree-item-content">
+                    <a
+                      href="https://github.com/skyfalconua/snippets/tree/main/langs/python"
+                    >python</a><div class="tree-description">
+                      Python programming language snippets
+                    </div>
+                  </div>
+                </div>
+                <div class="tree-item">
+                  <svg class="icon icon-item">
+                    <use href="#itemIconSymbol"></use>
+                  </svg>
+                  <div class="tree-item-content">
+                    <a
+                      href="https://github.com/skyfalconua/snippets/tree/main/langs/java"
+                    >java</a><div class="tree-description">
+                      Java programming language snippets
+                    </div>
+                  </div>
+                </div>
+                <div class="tree-item">
+                  <svg class="icon icon-item">
+                    <use href="#itemIconSymbol"></use>
+                  </svg>
+                  <div class="tree-item-content">
+                    <a
+                      href="https://github.com/skyfalconua/snippets/tree/main/langs/cpp"
+                    >cpp</a><div class="tree-description">
+                      C++ programming language snippets
+                    </div>
+                  </div>
+                </div>
+                <div class="tree-item">
+                  <svg class="icon icon-item">
+                    <use href="#itemIconSymbol"></use>
+                  </svg>
+                  <div class="tree-item-content">
+                    <a
+                      href="https://github.com/skyfalconua/snippets/tree/main/langs/clojure"
+                    >clojure</a><div class="tree-description">
+                      Clojure programming language snippets
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </details>
+          </section>
+        </section>
+        <section>
+          <section class="tree-section">
+            <details open>
+              <summary>
+                <span class="details-categoty-title"><svg
+                    class="icon icon-folder"
+                  >
+                    <use href="#folderIconSymbol"></use>
+                  </svg> apps</span><svg class="icon icon-indicator3">
+                  <use href="#indicator3IconSymbol"></use>
+                </svg>
+              </summary>
+              <div class="tree-content">
+                <div class="tree-item">
+                  <svg class="icon icon-application">
+                    <use href="#applicationIconSymbol"></use>
+                  </svg>
+                  <div class="tree-item-content">
+                    <a href="https://github.com/skyfalconua/localzoo"
+                    >localzoo</a><div class="tree-description">
+                      Utility to run multiple microservices at localhost
+                      alongside with proxy
+                    </div>
+                  </div>
+                </div>
+                <div class="tree-item">
+                  <svg class="icon icon-application">
+                    <use href="#applicationIconSymbol"></use>
+                  </svg>
+                  <div class="tree-item-content">
+                    <a href="https://github.com/skyfalconua/afind">afind</a><div
+                      class="tree-description"
+                    >
+                      Advanced wrapper around search utilities like The Silver
+                      Searcher
+                    </div>
+                  </div>
+                </div>
+                <div class="tree-item">
+                  <svg class="icon icon-application">
+                    <use href="#applicationIconSymbol"></use>
+                  </svg>
+                  <div class="tree-item-content">
+                    <a href="https://github.com/skyfalconua/autounattend.js"
+                    >autounattend.js</a><div class="tree-description">
+                      Git-friendly modular autounattend.xml config generator for
+                      Windows installation automation
+                    </div>
+                  </div>
+                </div>
+                <div class="tree-item">
+                  <svg class="icon icon-application">
+                    <use href="#applicationIconSymbol"></use>
+                  </svg>
+                  <div class="tree-item-content">
+                    <a
+                      href="https://github.com/skyfalconua/snippets/tree/main/apps/ftua"
+                    >ftua</a><div class="tree-description">
+                      Calculator of flat loan percents
+                    </div>
+                  </div>
+                </div>
+                <div class="tree-item">
+                  <svg class="icon icon-application">
+                    <use href="#applicationIconSymbol"></use>
+                  </svg>
+                  <div class="tree-item-content">
+                    <a
+                      href="https://github.com/skyfalconua/snippets/tree/main/apps/portal-helper"
+                    >portal-helper</a><div class="tree-description">
+                      Browser extention for 3-step autologin
+                    </div>
+                  </div>
+                </div>
+                <div class="tree-item">
+                  <svg class="icon icon-application">
+                    <use href="#applicationIconSymbol"></use>
+                  </svg>
+                  <div class="tree-item-content">
+                    <a
+                      href="https://github.com/skyfalconua/snippets/tree/main/apps/wschat"
+                    >wschat</a><div class="tree-description">
+                      Simple WebSocket-based chat application
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </details>
+            <details open>
+              <summary>
+                <span class="details-categoty-title"><svg
+                    class="icon icon-folder"
+                  >
+                    <use href="#folderIconSymbol"></use>
+                  </svg> My Libriries frameworks</span><svg
+                  class="icon icon-indicator3"
+                >
+                  <use href="#indicator3IconSymbol"></use>
+                </svg>
+              </summary>
+              <div class="tree-content">
+                <div class="tree-item">
+                  <svg class="icon icon-library">
+                    <use href="#libraryIconSymbol"></use>
+                  </svg>
+                  <div class="tree-item-content">
+                    <a href="https://github.com/skyfalconua/libmyserver.sh"
+                    >libmyserver.sh</a><div class="tree-description">
+                      Lightweight Bash library for server manangment and
+                    </div>
+                  </div>
+                </div>
+                <div class="tree-item">
+                  <svg class="icon icon-library">
+                    <use href="#libraryIconSymbol"></use>
+                  </svg>
+                  <div class="tree-item-content">
+                    <a
+                      href="https://github.com/skyfalconua/django-template-project"
+                    >django-template-project</a><div class="tree-description">
+                      Django project template with common configurations and
+                      structure
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </details>
+            <details>
+              <summary>
+                <span class="details-categoty-title"><svg
+                    class="icon icon-folder"
+                  >
+                    <use href="#folderIconSymbol"></use>
+                  </svg> other</span><svg class="icon icon-indicator3">
+                  <use href="#indicator3IconSymbol"></use>
+                </svg>
+              </summary>
+              <div class="tree-content">
+                <div class="tree-item">
+                  <svg class="icon icon-item">
+                    <use href="#itemIconSymbol"></use>
+                  </svg>
+                  <div class="tree-item-content">
+                    <a
+                      href="https://github.com/skyfalconua/snippets/tree/main/other/ansible"
+                    >ansible</a><div class="tree-description">
+                      Ansible configuration and playbook examples
+                    </div>
+                  </div>
+                </div>
+                <div class="tree-item">
+                  <svg class="icon icon-item">
+                    <use href="#itemIconSymbol"></use>
+                  </svg>
+                  <div class="tree-item-content">
+                    <a
+                      href="https://github.com/skyfalconua/snippets/tree/main/other/docker"
+                    >docker</a><div class="tree-description">
+                      Docker configuration and Dockerfile examples
+                    </div>
+                  </div>
+                </div>
+                <div class="tree-item">
+                  <svg class="icon icon-item">
+                    <use href="#itemIconSymbol"></use>
+                  </svg>
+                  <div class="tree-item-content">
+                    <a
+                      href="https://github.com/skyfalconua/snippets/tree/main/other/etc_init_d"
+                    >etc_init_d</a><div class="tree-description">
+                      System initialization scripts
+                    </div>
+                  </div>
+                </div>
+                <div class="tree-item">
+                  <svg class="icon icon-item">
+                    <use href="#itemIconSymbol"></use>
+                  </svg>
+                  <div class="tree-item-content">
+                    <a
+                      href="https://github.com/skyfalconua/snippets/tree/main/other/firefox_ssh_tunnel"
+                    >firefox_ssh_tunnel</a><div class="tree-description">
+                      Firefox SSH tunnel configuration
+                    </div>
+                  </div>
+                </div>
+                <div class="tree-item">
+                  <svg class="icon icon-item">
+                    <use href="#itemIconSymbol"></use>
+                  </svg>
+                  <div class="tree-item-content">
+                    <a
+                      href="https://github.com/skyfalconua/snippets/tree/main/other/git"
+                    >git</a><div class="tree-description">
+                      Git configuration and workflow examples
+                    </div>
+                  </div>
+                </div>
+                <div class="tree-item">
+                  <svg class="icon icon-item">
+                    <use href="#itemIconSymbol"></use>
+                  </svg>
+                  <div class="tree-item-content">
+                    <a
+                      href="https://github.com/skyfalconua/snippets/tree/main/other/k8s-portal"
+                    >k8s-portal</a><div class="tree-description">
+                      Kubernetes portal setup and configuration
+                    </div>
+                  </div>
+                </div>
+                <div class="tree-item">
+                  <svg class="icon icon-item">
+                    <use href="#itemIconSymbol"></use>
+                  </svg>
+                  <div class="tree-item-content">
+                    <a
+                      href="https://github.com/skyfalconua/snippets/tree/main/other/makefiles"
+                    >makefiles</a><div class="tree-description">
+                      Makefile examples and templates
+                    </div>
+                  </div>
+                </div>
+                <div class="tree-item">
+                  <svg class="icon icon-item">
+                    <use href="#itemIconSymbol"></use>
+                  </svg>
+                  <div class="tree-item-content">
+                    <a
+                      href="https://github.com/skyfalconua/snippets/tree/main/other/mysql"
+                    >mysql</a><div class="tree-description">
+                      MySQL database configuration and scripts
+                    </div>
+                  </div>
+                </div>
+                <div class="tree-item">
+                  <svg class="icon icon-item">
+                    <use href="#itemIconSymbol"></use>
+                  </svg>
+                  <div class="tree-item-content">
+                    <a
+                      href="https://github.com/skyfalconua/snippets/tree/main/other/nginx"
+                    >nginx</a><div class="tree-description">
+                      Nginx web server configuration
+                    </div>
+                  </div>
+                </div>
+                <div class="tree-item">
+                  <svg class="icon icon-item">
+                    <use href="#itemIconSymbol"></use>
+                  </svg>
+                  <div class="tree-item-content">
+                    <a
+                      href="https://github.com/skyfalconua/snippets/tree/main/other/nvim"
+                    >nvim</a><div class="tree-description">
+                      Neovim configuration and plugins
+                    </div>
+                  </div>
+                </div>
+                <div class="tree-item">
+                  <svg class="icon icon-item">
+                    <use href="#itemIconSymbol"></use>
+                  </svg>
+                  <div class="tree-item-content">
+                    <a
+                      href="https://github.com/skyfalconua/snippets/tree/main/other/osx"
+                    >osx</a><div class="tree-description">
+                      macOS-specific configurations and scripts
+                    </div>
+                  </div>
+                </div>
+                <div class="tree-item">
+                  <svg class="icon icon-item">
+                    <use href="#itemIconSymbol"></use>
+                  </svg>
+                  <div class="tree-item-content">
+                    <a
+                      href="https://github.com/skyfalconua/snippets/tree/main/other/shell"
+                    >shell</a><div class="tree-description">
+                      Shell script examples and utilities
+                    </div>
+                  </div>
+                </div>
+                <div class="tree-item">
+                  <svg class="icon icon-item">
+                    <use href="#itemIconSymbol"></use>
+                  </svg>
+                  <div class="tree-item-content">
+                    <a
+                      href="https://github.com/skyfalconua/snippets/tree/main/other/SublimeText"
+                    >SublimeText</a><div class="tree-description">
+                      Sublime Text editor configuration
+                    </div>
+                  </div>
+                </div>
+                <div class="tree-item">
+                  <svg class="icon icon-item">
+                    <use href="#itemIconSymbol"></use>
+                  </svg>
+                  <div class="tree-item-content">
+                    <a
+                      href="https://github.com/skyfalconua/snippets/tree/main/other/tools"
+                    >tools</a><div class="tree-description">
+                      Miscellaneous tools and utilities configuration
+                    </div>
+                  </div>
+                </div>
+                <div class="tree-item">
+                  <svg class="icon icon-item">
+                    <use href="#itemIconSymbol"></use>
+                  </svg>
+                  <div class="tree-item-content">
+                    <a
+                      href="https://github.com/skyfalconua/snippets/tree/main/other/WebScrapBook"
+                    >WebScrapBook</a><div class="tree-description">
+                      WebScrapBook browser extension configuration
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </details>
+            <details>
+              <summary>
+                <span class="details-categoty-title"><svg
+                    class="icon icon-folder"
+                  >
+                    <use href="#folderIconSymbol"></use>
+                  </svg> Misc applications or packages</span><svg
+                  class="icon icon-indicator3"
+                >
+                  <use href="#indicator3IconSymbol"></use>
+                </svg>
+              </summary>
+              <div class="tree-content">
+                <div class="tree-item">
+                  <svg class="icon icon-download">
+                    <use href="#downloadIconSymbol"></use>
+                  </svg>
+                  <div class="tree-item-content">
+                    <a
+                      href="https://github.com/skyfalconua/pkgs/tree/main/Keyboards"
+                    >Custom Os X keyboards layout</a><div
+                      class="tree-description"
+                    >
+                      Keyboard configurations and layouts
+                    </div>
+                  </div>
+                </div>
+                <div class="tree-item">
+                  <svg class="icon icon-download">
+                    <use href="#downloadIconSymbol"></use>
+                  </svg>
+                  <div class="tree-item-content">
+                    <a
+                      href="https://github.com/skyfalconua/pkgs/tree/main/prezto"
+                    >prezto</a><div class="tree-description">
+                      Prezto shell framework and configuration
+                    </div>
+                  </div>
+                </div>
+                <div class="tree-item">
+                  <svg class="icon icon-download">
+                    <use href="#downloadIconSymbol"></use>
+                  </svg>
+                  <div class="tree-item-content">
+                    <a href="https://github.com/skyfalconua/pkgs/tree/main/yazi"
+                    >yazi</a><div class="tree-description">
+                      Terminal file manager setup and binaries
+                    </div>
+                  </div>
+                </div>
+                <div class="tree-item">
+                  <svg class="icon icon-download">
+                    <use href="#downloadIconSymbol"></use>
+                  </svg>
+                  <div class="tree-item-content">
+                    <a
+                      href="https://github.com/skyfalconua/pkgs/tree/main/micro"
+                    >micro</a><div class="tree-description">
+                      Pre-compiled Micro editor binaries and setup
+                    </div>
+                  </div>
+                </div>
+                <div class="tree-item">
+                  <svg class="icon icon-download">
+                    <use href="#downloadIconSymbol"></use>
+                  </svg>
+                  <div class="tree-item-content">
+                    <a
+                      href="https://github.com/skyfalconua/pkgs/tree/main/neovim"
+                    >neovim</a><div class="tree-description">
+                      Pre-compiled Neovim editor binaries and configuration
+                    </div>
+                  </div>
+                </div>
+                <div class="tree-item">
+                  <svg class="icon icon-download">
+                    <use href="#downloadIconSymbol"></use>
+                  </svg>
+                  <div class="tree-item-content">
+                    <a
+                      href="https://github.com/skyfalconua/pkgs/tree/main/helix"
+                    >helix</a><div class="tree-description">
+                      Pre-compiled Helix editor binaries for multiple
+                      architectures
+                    </div>
+                  </div>
+                </div>
+                <div class="tree-item">
+                  <svg class="icon icon-download">
+                    <use href="#downloadIconSymbol"></use>
+                  </svg>
+                  <div class="tree-item-content">
+                    <a
+                      href="https://github.com/skyfalconua/pkgs/tree/main/qrencode"
+                    >qrencode</a><div class="tree-description">
+                      QR code encoding utility
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </details>
+          </section>
+        </section>
+      </div>
+    </div>
+  </body>
+</html>

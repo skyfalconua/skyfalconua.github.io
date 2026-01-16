@@ -1,0 +1,31 @@
+{
+  "version": "5",
+  "specifiers": {
+    "jsr:@std/yaml@*": "1.0.10",
+    "npm:preact-render-to-string@*": "6.6.5_preact@10.28.2",
+    "npm:preact@*": "10.28.2"
+  },
+  "jsr": {
+    "@std/yaml@1.0.10": {
+      "integrity": "245706ea3511cc50c8c6d00339c23ea2ffa27bd2c7ea5445338f8feff31fa58e"
+    }
+  },
+  "npm": {
+    "preact-render-to-string@6.6.5_preact@10.28.2": {
+      "integrity": "sha512-O6MHzYNIKYaiSX3bOw0gGZfEbOmlIDtDfWwN1JJdc/T3ihzRT6tGGSEWE088dWrEDGa1u7101q+6fzQnO9XCPA==",
+      "dependencies": [
+        "preact"
+      ]
+    },
+    "preact@10.28.2": {
+      "integrity": "sha512-lbteaWGzGHdlIuiJ0l2Jq454m6kcpI1zNje6d8MlGAFlYvP2GO4ibnat7P74Esfz4sPTdM6UxtTwh/d3pwM9JA=="
+    }
+  },
+  "workspace": {
+    "dependencies": [
+      "jsr:@std/yaml@*",
+      "npm:preact-render-to-string@*",
+      "npm:preact@*"
+    ]
+  }
+}

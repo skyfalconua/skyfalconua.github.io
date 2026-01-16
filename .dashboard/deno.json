@@ -1,0 +1,12 @@
+{
+  "imports": {
+    "preact/jsx-runtime": "npm:preact/jsx-runtime",
+    "@std/yaml": "jsr:@std/yaml",
+    "preact-render-to-string": "npm:preact-render-to-string"
+  },
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact",
+    "types": ["preact"]
+  }
+}

@@ -1,0 +1,192 @@
+left_column:
+  categories:
+    - name: My Configs
+      icon: settings
+      opened: true
+      links:
+        - name: dotfiles
+          path: dotfiles
+          description: My shell and apps configs for dev environments
+        - name: neovim config
+          path: minimax-config
+          description: Neovim and terminal configuration files
+        - name: Gimp config
+          path: gimp-config
+          description: GIMP image editor configuration and plugins
+        - name: windev
+          path: windev
+          description: Windows dev environment setup and configuration scripts
+
+    - name: TamperMonkey Browser UserScripts
+      icon: web
+      path: PAGES
+      opened: true
+      links:
+        - name: VSIX-Downloader.user.js
+          path: user-scripts/VSIX-Downloader.user.js
+          description: Userscript for downloading VSIX files
+        - name: TendaWifi-DevicesListHelper.user.js
+          path: user-scripts/TendaWifi-DevicesListHelper.user.js
+          description: Userscript for Tenda WiFi device list helper
+        - name: TendaWifi-En.user.js
+          path: user-scripts/TendaWifi-En.user.js
+          description: Userscript for Tenda WiFi English interface
+        - name: miwifi-ukr.user.js
+          path: user-scripts/miwifi-ukr.user.js
+          description: Userscript for Mi WiFi Ukrainian interface
+        - name: miwifi-rus.user.js
+          path: user-scripts/miwifi-rus.user.js
+          description: Userscript for Mi WiFi Russian interface
+        - name: easypaytotalsum.user.js
+          path: user-scripts/easypaytotalsum.user.js
+          description: EasyPay.ua - Calculate total sum calculation on history page
+
+    - name: scripts
+      path: snippets/tree/main
+      links:
+        - name: build_pyegg
+          path: scripts/build_pyegg
+          description: Python egg building utility script
+        - name: check_balance
+          path: scripts/check_balance
+          description: Balance checking utility script
+        - name: mozilla_firefox
+          path: scripts/mozilla_firefox
+          description: Firefox automation and management script
+        - name: shell-tools
+          path: scripts/shell-tools
+          description: Shell utility tools and helpers
+        - name: tools
+          path: scripts/tools
+          description: General-purpose utility scripts
+
+    - name: langs
+      # opened: true
+      path: snippets/tree/main
+      links:
+        - name: js
+          path: langs/js
+          description: JavaScript programming language snippets
+        - name: python
+          path: langs/python
+          description: Python programming language snippets
+        - name: java
+          path: langs/java
+          description: Java programming language snippets
+        - name: cpp
+          path: langs/cpp
+          description: C++ programming language snippets
+        - name: clojure
+          path: langs/clojure
+          description: Clojure programming language snippets
+
+right_column:
+  categories:
+    - name: apps
+      icon: application
+      opened: true
+      links:
+        - name: localzoo
+          path: localzoo
+          description: Utility to run multiple microservices at localhost alongside with proxy
+        - name: afind
+          path: afind
+          description: Advanced wrapper around search utilities like The Silver Searcher
+        - name: autounattend.js
+          path: autounattend.js
+          description: Git-friendly modular autounattend.xml config generator for Windows installation automation
+        - name: ftua
+          path: snippets/tree/main/apps/ftua
+          description: Calculator of flat loan percents
+        - name: portal-helper
+          path: snippets/tree/main/apps/portal-helper
+          description: Browser extention for 3-step autologin
+        - name: wschat
+          path: snippets/tree/main/apps/wschat
+          description: Simple WebSocket-based chat application
+
+    - name: My Libriries frameworks
+      icon: library
+      opened: true
+      links:
+        - name: libmyserver.sh
+          path: libmyserver.sh
+          description: Lightweight Bash library for server manangment and
+        - name: django-template-project
+          path: django-template-project
+          description: Django project template with common configurations and structure
+
+    - name: other
+      path: snippets/tree/main
+      links:
+        - name: ansible
+          path: other/ansible
+          description: Ansible configuration and playbook examples
+        - name: docker
+          path: other/docker
+          description: Docker configuration and Dockerfile examples
+        - name: etc_init_d
+          path: other/etc_init_d
+          description: System initialization scripts
+        - name: firefox_ssh_tunnel
+          path: other/firefox_ssh_tunnel
+          description: Firefox SSH tunnel configuration
+        - name: git
+          path: other/git
+          description: Git configuration and workflow examples
+        - name: k8s-portal
+          path: other/k8s-portal
+          description: Kubernetes portal setup and configuration
+        - name: makefiles
+          path: other/makefiles
+          description: Makefile examples and templates
+        - name: mysql
+          path: other/mysql
+          description: MySQL database configuration and scripts
+        - name: nginx
+          path: other/nginx
+          description: Nginx web server configuration
+        - name: nvim
+          path: other/nvim
+          description: Neovim configuration and plugins
+        - name: osx
+          path: other/osx
+          description: macOS-specific configurations and scripts
+        - name: shell
+          path: other/shell
+          description: Shell script examples and utilities
+        - name: SublimeText
+          path: other/SublimeText
+          description: Sublime Text editor configuration
+        - name: tools
+          path: other/tools
+          description: Miscellaneous tools and utilities configuration
+        - name: WebScrapBook
+          path: other/WebScrapBook
+          description: WebScrapBook browser extension configuration
+
+    - name: Misc applications or packages
+      icon: download
+      path: pkgs/tree/main
+      links:
+        - name: Custom Os X keyboards layout
+          path: Keyboards
+          description: Keyboard configurations and layouts
+        - name: prezto
+          path: prezto
+          description: Prezto shell framework and configuration
+        - name: yazi
+          path: yazi
+          description: Terminal file manager setup and binaries
+        - name: micro
+          path: micro
+          description: Pre-compiled Micro editor binaries and setup
+        - name: neovim
+          path: neovim
+          description: Pre-compiled Neovim editor binaries and configuration
+        - name: helix
+          path: helix
+          description: Pre-compiled Helix editor binaries for multiple architectures
+        - name: qrencode
+          path: qrencode
+          description: QR code encoding utility
