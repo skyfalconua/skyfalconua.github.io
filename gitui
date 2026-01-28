@@ -1,18 +1,29 @@
 #!/bin/sh
 _gituifetch() {
-  if [ ! `whoami` = "root" ]; then
+  local pkgname=""
+  local exe=""
+
+  case "$(uname -s)" in
+    Linux)        pkgname="gitui-linux-$(uname -m)" ;;
+    MINGW*|MSYS*) pkgname="gitui-win" exe=".exe" ;;
+    *)            echo "error: unsupported os"; return ;;
+  esac
+
+  # require root for linux
+  if [ -z "$exe" ] && [ ! `whoami` = "root" ]; then
     echo "error: must be run as root"; return
   fi
 
   local rel="https://api.github.com/repos/gitui-org/gitui/releases/latest"
   local ver=`curl -s "${rel}" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/' | tr -d 'v'`
-  local pkgname="gitui-linux-$(uname -m)"
   local pkgurl="https://github.com/gitui-org/gitui/releases/download/v${ver}/${pkgname}.tar.gz"
+
+  echo $pkgurl
 
   mkdir _gitui && \
   curl -sL "${pkgurl}" | tar xz -C _gitui && \
-  mv -f ./_gitui/gitui /usr/bin/gitui && \
-  chmod 755 /usr/bin/gitui && \
+  mv -f ./_gitui/gitui${exe} /usr/bin/gitui${exe} && \
+  chmod 755 /usr/bin/gitui${exe} && \
   rm -rf _gitui && \
   echo "created /usr/bin/gitui (v${ver})"
 }

@@ -11,7 +11,8 @@ _yazifetch() {
     *)            echo "error: unsupported os"; return ;;
   esac
 
-  if [ "$bin" = "unknown-linux-musl" ] && [ ! `whoami` = "root" ]; then
+  # require root for linux
+  if [ -z "$exe" ] && [ ! `whoami` = "root" ]; then
     echo "error: must be run as root"; return
   fi
 
