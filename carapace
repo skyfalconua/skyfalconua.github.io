@@ -11,14 +11,14 @@ _carapacefetch() {
     *)       echo "error: unknown architecture"; return ;;
   esac
 
-  local rel="https://api.github.com/repos/carapace-sh/carapace/releases/latest"
+  local rel="https://api.github.com/repos/carapace-sh/carapace-bin/releases/latest"
   local ver=`curl -s "${rel}" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/' | tr -d 'v'`
-  local pkgname="example_linux_${arch}"
-  local pkgurl="https://github.com/carapace-sh/carapace/releases/download/v${ver}/${pkgname}.tar.gz"
+  local pkgname="carapace-bin_${ver}_linux_${arch}"
+  local pkgurl="https://github.com/carapace-sh/carapace-bin/releases/download/v${ver}/${pkgname}.tar.gz"
 
   mkdir _carapace && \
   curl -sL  "${pkgurl}" | tar xz -C _carapace && \
-  mv -f ./_carapace/example /usr/bin/carapace && \
+  mv -f ./_carapace/carapace /usr/bin/carapace && \
   chmod 755 /usr/bin/carapace && \
   rm -rf _carapace && \
   echo "created /usr/bin/carapace (v${ver})"
