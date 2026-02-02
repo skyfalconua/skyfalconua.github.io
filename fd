@@ -1,8 +1,6 @@
 #!/bin/sh
 _fdfindfetch() {
-  if [ ! `whoami` = "root" ]; then
-    echo "error: must be run as root"; return
-  fi
+  local dotbin="$HOME/.dotfiles/bin"
 
   local rel="https://api.github.com/repos/sharkdp/fd/releases/latest"
   local ver=`curl -s "${rel}" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/' | tr -d 'v'`
@@ -10,9 +8,9 @@ _fdfindfetch() {
   local pkgurl="https://github.com/sharkdp/fd/releases/download/v${ver}/${pkgname}.tar.gz"
 
   curl -sL  "${pkgurl}" | tar xz -C . && \
-  mv -f ./${pkgname}/fd /usr/bin/fd && \
-  chmod 755 /usr/bin/fd && \
+  mv -f ./${pkgname}/fd ${dotbin}/fd && \
+  chmod 755 ${dotbin}/fd && \
   rm -rf ${pkgname} && \
-  echo "created /usr/bin/fd (v${ver})"
+  echo "created ${dotbin}/fd (v${ver})"
 }
 _fdfindfetch; unset _fdfindfetch

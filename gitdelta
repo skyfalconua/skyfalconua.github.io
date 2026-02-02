@@ -1,8 +1,6 @@
 #!/bin/sh
 _gitdeltafetch() {
-  if [ ! `whoami` = "root" ]; then
-    echo "error: must be run as root"; return
-  fi
+  local dotbin="$HOME/.dotfiles/bin"
 
   local arch=""
   case "$(uname -m)" in
@@ -17,9 +15,9 @@ _gitdeltafetch() {
   local pkgurl="https://github.com/dandavison/delta/releases/download/${ver}/${pkgname}.tar.gz"
 
   curl -sL  "${pkgurl}" | tar xz -C . && \
-  mv -f ./${pkgname}/delta /usr/bin/delta && \
-  chmod 755 /usr/bin/delta && \
+  mv -f ./${pkgname}/delta ${dotbin}/delta && \
+  chmod 755 ${dotbin}/delta && \
   rm -rf ${pkgname} && \
-  echo "created /usr/bin/delta (v${ver})"
+  echo "created ${dotbin}/delta (v${ver})"
 }
 _gitdeltafetch; unset _gitdeltafetch

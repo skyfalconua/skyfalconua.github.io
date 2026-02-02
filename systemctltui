@@ -1,8 +1,6 @@
 #!/bin/sh
 _systemdtuifetch() {
-  if [ ! `whoami` = "root" ]; then
-    echo "error: must be run as root"; return
-  fi
+  local dotbin="$HOME/.dotfiles/bin"
 
   local rel="https://api.github.com/repos/rgwood/systemctl-tui/releases/latest"
   local ver=`curl -s "${rel}" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/' | tr -d 'v'`
@@ -11,9 +9,9 @@ _systemdtuifetch() {
 
   mkdir _systemdtui && \
   curl -sL  "${pkgurl}" | tar xz -C _systemdtui && \
-  mv -f ./_systemdtui/systemctl-tui /usr/bin/systemctl-tui && \
-  chmod 755 /usr/bin/systemctl-tui && \
+  mv -f ./_systemdtui/systemctl-tui ${dotbin}/systemctl-tui && \
+  chmod 755 ${dotbin}/systemctl-tui && \
   rm -rf _systemdtui && \
-  echo "created /usr/bin/systemctl-tui (v${ver})"
+  echo "created ${dotbin}/systemctl-tui (v${ver})"
 }
 _systemdtuifetch; unset _systemdtuifetch

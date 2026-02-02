@@ -1,8 +1,6 @@
 #!/bin/sh
 _neovimfetch() {
-  if [ ! `whoami` = "root" ]; then
-    echo "error: must be run as root"; return
-  fi
+  local dotbin="$HOME/.dotfiles/bin"
 
   local arch=""
   case "$(uname -m)" in
@@ -20,8 +18,8 @@ _neovimfetch() {
   curl -sL "${pkgurl}" | tar xz -C . && \
   mv "${pkgname}" "neovim" && \
   chmod 755 /opt/neovim/bin/nvim && \
-  ln -sfv /opt/neovim/bin/nvim /usr/bin/nvim && \
-  echo "created /usr/bin/nvim (v${ver})"
+  ln -sfv /opt/neovim/bin/nvim ${dotbin}/nvim && \
+  echo "created ${dotbin}/nvim (v${ver})"
 
   cd
   git clone --depth 1 "https://github.com/skyfalconua/minimax-config.git" "$HOME/.config/nvim"

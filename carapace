@@ -1,8 +1,6 @@
 #!/bin/sh
 _carapacefetch() {
-  if [ ! `whoami` = "root" ]; then
-    echo "error: must be run as root"; return
-  fi
+  local dotbin="$HOME/.dotfiles/bin"
 
   local arch=""
   case "$(uname -m)" in
@@ -18,9 +16,9 @@ _carapacefetch() {
 
   mkdir _carapace && \
   curl -sL  "${pkgurl}" | tar xz -C _carapace && \
-  mv -f ./_carapace/carapace /usr/bin/carapace && \
-  chmod 755 /usr/bin/carapace && \
+  mv -f ./_carapace/carapace ${dotbin}/carapace && \
+  chmod 755 ${dotbin}/carapace && \
   rm -rf _carapace && \
-  echo "created /usr/bin/carapace (v${ver})"
+  echo "created ${dotbin}/carapace (v${ver})"
 }
 _carapacefetch; unset _carapacefetch

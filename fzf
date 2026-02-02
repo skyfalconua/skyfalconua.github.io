@@ -1,8 +1,6 @@
 #!/bin/sh
 _fzffetch() {
-  if [ ! `whoami` = "root" ]; then
-    echo "warning: fzf binary can be installed only by root"; return
-  fi
+  local dotbin="$HOME/.dotfiles/bin"
 
   local arch=""
   case "$(uname -m)" in
@@ -18,10 +16,10 @@ _fzffetch() {
 
   mkdir _fzf && \
   curl -sL "${pkgurl}" | tar xz -C _fzf && \
-  mv -f ./_fzf/fzf /usr/bin/fzf && \
-  chmod 755 /usr/bin/fzf && \
+  mv -f ./_fzf/fzf ${dotbin}/fzf && \
+  chmod 755 ${dotbin}/fzf && \
   rm -rf _fzf && \
-  echo "created /usr/bin/fzf (v${ver})"
+  echo "created ${dotbin}/fzf (v${ver})"
 }
 _fzffetch; unset _fzffetch
 
@@ -32,16 +30,9 @@ _getfzf() {
 }
 _getfzfall() {
   local ghfz="https://raw.githubusercontent.com/junegunn/fzf/master/shell"
-  local destfz=""
-
-  if [ `whoami` = "root" ]; then
-    destfz="/usr/local/opt/fzf/shell"
-  else
-    destfz="$HOME/.local/share/fzf/shell"
-  fi
+  local destfz="$HOME/.local/share/fzf/shell"
 
   mkdir -p $destfz
-
   _getfzf "$ghfz" "$destfz" "completion.zsh"
   _getfzf "$ghfz" "$destfz" "key-bindings.zsh"
 }

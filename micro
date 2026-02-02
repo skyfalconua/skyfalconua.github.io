@@ -1,11 +1,13 @@
 #!/bin/sh
 _microfetch() {
+  local dotbin="$HOME/.dotfiles/bin"
+
   local rel="https://raw.githubusercontent.com/skyfalconua/pkgs/refs/heads/main/micro/VERSION"
   local ver=`curl -s "${rel}" | xargs`
   local pkg="https://skyfalconua.github.io/pkgs/micro/micro-${ver}-$(uname -m)"
 
-  curl -sL  "${pkg}" > "/usr/bin/micro" && \
-  chmod 755 "/usr/bin/micro" && \
-  echo "created /usr/bin/micro (v${ver})"
+  curl -sL  "${pkg}" > "${dotbin}/micro" && \
+  chmod 755 "${dotbin}/micro" && \
+  echo "created ${dotbin}/micro (v${ver})"
 }
 _microfetch; unset _microfetch

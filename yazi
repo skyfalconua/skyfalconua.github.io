@@ -1,10 +1,9 @@
 #!/bin/sh
 _yazifetch() {
-  local rel="https://raw.githubusercontent.com/skyfalconua/pkgs/refs/heads/main/yazi/VERSION"
-  local ver=`curl -s "${rel}" | xargs`
+  local dotbin="$HOME/.dotfiles/bin"
+
   local bin=""
   local exe=""
-
   case "$(uname -s)" in
     Linux)        bin="unknown-linux-musl" ;;
     MINGW*|MSYS*) bin="pc-windows-msvc" exe=".exe" ;;
@@ -18,8 +17,8 @@ _yazifetch() {
 
   local pkg="https://skyfalconua.github.io/pkgs/yazi/yazi-${ver}-$(uname -m)-${bin}${exe}"
 
-  curl -sL  "${pkg}" > "/usr/bin/yazi${exe}" && \
-  chmod 755 "/usr/bin/yazi${exe}" && \
-  echo "created /usr/bin/yazi${exe} (v${ver})"
+  curl -sL  "${pkg}" > "${dotbin}/yazi${exe}" && \
+  chmod 755 "${dotbin}/yazi${exe}" && \
+  echo "created ${dotbin}/yazi${exe} (v${ver})"
 }
 _yazifetch; unset _yazifetch
