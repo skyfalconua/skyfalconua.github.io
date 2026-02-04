@@ -21,8 +21,8 @@ _neovimfetch() {
   ln -sfv /opt/neovim/bin/nvim ${dotbin}/nvim && \
   echo "created ${dotbin}/nvim (v${ver})"
 
-  cd
-  git clone --depth 1 "https://github.com/skyfalconua/minimax-config.git" "$HOME/.config/nvim"
+  cd && echo
+  git clone --depth 1 "https://github.com/skyfalconua/minimax-config.git" "$HOME/.config/nvim-minimax"
 
   # note: check 'https://github.com/neovim/neovim-releases/releases' as well
 }

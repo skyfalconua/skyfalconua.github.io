@@ -10,11 +10,8 @@ _yazifetch() {
     *)            echo "error: unsupported os"; return ;;
   esac
 
-  # require root for linux
-  if [ -z "$exe" ] && [ ! `whoami` = "root" ]; then
-    echo "error: must be run as root"; return
-  fi
-
+  local rel="https://raw.githubusercontent.com/skyfalconua/pkgs/refs/heads/main/yazi/VERSION"
+  local ver=`curl -s "${rel}" | xargs`
   local pkg="https://skyfalconua.github.io/pkgs/yazi/yazi-${ver}-$(uname -m)-${bin}${exe}"
 
   curl -sL  "${pkg}" > "${dotbin}/yazi${exe}" && \

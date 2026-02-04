@@ -9,13 +9,13 @@ _remotedevmachinesetup() {
   fi
 
   curl https://skyfalconua.github.io/dotfiles | sh
-  curl https://skyfalconua.github.io/fzf | $sudox sh
-  curl https://skyfalconua.github.io/micro | $sudox sh
-  curl https://skyfalconua.github.io/yazi | $sudox sh
-  curl https://skyfalconua.github.io/gitdelta | $sudox sh
-  curl https://skyfalconua.github.io/zoxide | $sudox sh
-  curl https://skyfalconua.github.io/fd | $sudox sh
-  curl https://skyfalconua.github.io/sd | $sudox sh
+  curl https://skyfalconua.github.io/fzf | sh
+  curl https://skyfalconua.github.io/micro | sh
+  curl https://skyfalconua.github.io/yazi | sh
+  curl https://skyfalconua.github.io/gitdelta | sh
+  curl https://skyfalconua.github.io/zoxide | sh
+  curl https://skyfalconua.github.io/fd | sh
+  curl https://skyfalconua.github.io/sd | sh
 
   echo >> "$HOME/.bash_profile"
   echo "export TERM=xterm-256color" >> "$HOME/.bash_profile"
