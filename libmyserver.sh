@@ -1,4 +1,4 @@
-# libmyserver.sh v2025.12.26
+# libmyserver.sh v2026.2.7
 # https://skyfalconua.github.io/libmyserver.sh
 
 #- ./lib/utils.sh
@@ -133,7 +133,7 @@ template__nginx_container_nginx() {
   $E "  }"
   $E ""
   $E "  location @mainsite {"
-  $E "    proxy_pass http://__PROJECT__-__ENV__-web:8000;"
+  $E "    proxy_pass http://__PROJECTNAME__-__ENV__-web:8000;"
   $E "    proxy_set_header Host \$http_host;"
   $E "    proxy_set_header X-Real-IP \$remote_addr;"
   $E "    proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;"
@@ -179,8 +179,8 @@ template__nginx_system_nginx() {
   $E "  listen 443 ssl;"
   $E ""
   $E "  __SSL_OPTIONS__"
-  $E "  ssl_certificate      __CERT_FILE__;"
-  $E "  ssl_certificate_key  __CERT_KEY__;"
+  $E "  ssl_certificate      __CERTFILE__;"
+  $E "  ssl_certificate_key  __KEYFILE__;"
   $E ""
   $E "  location / {"
   $E "    proxy_pass http://127.0.0.1:__PORT__;"
@@ -278,7 +278,7 @@ template__podman_ConfigMap_yaml() {
   $E "apiVersion: v1"
   $E "kind: ConfigMap"
   $E "metadata:"
-  $E "  name: __PROJECT__-__ENV__"
+  $E "  name: __PROJECTNAME__-__ENV__"
   $E "data:"
   $E "  ENV: __ENV__"
   $E "  HOST: __HOST__"
@@ -308,9 +308,9 @@ template__podman_Podman_yaml() {
   if is_enabled "${USE_DJANGO}"; then
   $E "      volumeMounts:"
   $E "        - mountPath: /volumes/static"
-  $E "          name: __PROJECTNAME_____ENV___static_volume_pvc"
+  $E "          name: __PROJECTNAME__-__ENV__-static_volume_pvc"
   $E "        - mountPath: /volumes/media"
-  $E "          name: __PROJECTNAME_____ENV___media_volume_pvc"
+  $E "          name: __PROJECTNAME__-__ENV__-media_volume_pvc"
   fi
   $E ""
   if is_enabled "${USE_DJANGO}"; then
@@ -327,7 +327,7 @@ template__podman_Podman_yaml() {
   $E "          value: __PROJECTNAME__db"
   $E "      volumeMounts:"
   $E "        - mountPath: /bitnami/mariadb"
-  $E "          name: __PROJECTNAME_____ENV___db_volume_pvc"
+  $E "          name: __PROJECTNAME__-__ENV__-db_volume_pvc"
   fi
   $E ""
   $E "    - image: '__PROJECTNAME__-__ENV__/nginx'"
@@ -342,22 +342,22 @@ template__podman_Podman_yaml() {
   if is_enabled "${USE_DJANGO}"; then
   $E "      volumeMounts:"
   $E "        - mountPath: /volumes/media"
-  $E "          name: __PROJECTNAME_____ENV___media_volume_pvc"
+  $E "          name: __PROJECTNAME__-__ENV__-media_volume_pvc"
   $E "        - mountPath: /volumes/static"
-  $E "          name: __PROJECTNAME_____ENV___static_volume_pvc"
+  $E "          name: __PROJECTNAME__-__ENV__-static_volume_pvc"
   fi
   $E ""
   if is_enabled "${USE_DJANGO}"; then
   $E "  volumes:"
-  $E "    - name: __PROJECTNAME_____ENV___db_volume_pvc"
+  $E "    - name: __PROJECTNAME__-__ENV__-db_volume_pvc"
   $E "      persistentVolumeClaim:"
-  $E "        claimName: __PROJECTNAME_____ENV___db_volume"
-  $E "    - name: __PROJECTNAME_____ENV___media_volume_pvc"
+  $E "        claimName: __PROJECTNAME__-__ENV__-db_volume"
+  $E "    - name: __PROJECTNAME__-__ENV__-media_volume_pvc"
   $E "      persistentVolumeClaim:"
-  $E "        claimName: __PROJECTNAME_____ENV___media_volume"
-  $E "    - name: __PROJECTNAME_____ENV___static_volume_pvc"
+  $E "        claimName: __PROJECTNAME__-__ENV__-media_volume"
+  $E "    - name: __PROJECTNAME__-__ENV__-static_volume_pvc"
   $E "      persistentVolumeClaim:"
-  $E "        claimName: __PROJECTNAME_____ENV___static_volume"
+  $E "        claimName: __PROJECTNAME__-__ENV__-static_volume"
   fi
 }
 
@@ -393,7 +393,10 @@ _copy_cloudflare_certificate() {
 
   if [ ! -f "$crtfile" ] || [ ! -f "$keyfile" ]; then
     echo_warn "Cloudflare origin CA certificate was not found. Obtain it here:"
-    echo_warn "  https://dash.cloudflare.com/?to=/:account/:zone/ssl-tls/client-certificates"
+    echo_warn "  https://dash.cloudflare.com/?to=/:account/:zone/ssl-tls/origin"
+    echo_warn "Then put them to:"
+    echo_warn "  - ./var/certificates/cloudflare.crt"
+    echo_warn "  - ./var/certificates/cloudflare.key"
     exit
   fi
 
@@ -491,7 +494,7 @@ init_nginx_config() {
   echo_step "Create $conffile"
   template__nginx_system_nginx | \
     render_variables HOST PORT SSL_OPTIONS CERTFILE KEYFILE | \
-    save_to "$PROJECTROOT/nginx/nginx-container.conf"
+    save_to "$conffile"
   echo
 
   # -- reload nginx -- -- --
