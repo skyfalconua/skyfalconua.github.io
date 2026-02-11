@@ -1,0 +1,14 @@
+#!/bin/sh
+_neovimstaticfetch() {
+  local dotbin="$HOME/.dotfiles/bin"
+
+  local rel="https://skyfalconua.github.io/pkgs/neovim/VERSION"
+  local ver=`curl -sL "${rel}" | xargs`
+  local pkg="neovim-${ver}-$(uname -m).tgz"
+
+  curl -sL "https://skyfalconua.github.io/pkgs/neovim/${pkg}" > "${pkg}" | tar xz -C /opt && \
+  chmod 755 /opt/neovim/bin/nvim && \
+  ln -sf /opt/neovim/bin/nvim "${dotbin}/nvim" && \
+  echo "created ${dotbin}/nvim (v${ver})"
+}
+_neovimstaticfetch; unset _neovimstaticfetch

@@ -10,8 +10,8 @@ _yazifetch() {
     *)            echo "error: unsupported os"; return ;;
   esac
 
-  local rel="https://raw.githubusercontent.com/skyfalconua/pkgs/refs/heads/main/yazi/VERSION"
-  local ver=`curl -s "${rel}" | xargs`
+  local rel="https://skyfalconua.github.io/pkgs/yazi/VERSION"
+  local ver=`curl -sL "${rel}" | xargs`
   local pkg="https://skyfalconua.github.io/pkgs/yazi/yazi-${ver}-$(uname -m)-${bin}${exe}"
 
   curl -sL  "${pkg}" > "${dotbin}/yazi${exe}" && \

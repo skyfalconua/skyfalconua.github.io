@@ -2,8 +2,8 @@
 _qrencodefetch() {
   local dotbin="$HOME/.dotfiles/bin"
 
-  local rel="https://raw.githubusercontent.com/skyfalconua/pkgs/refs/heads/main/qrencode/VERSION"
-  local ver=`curl -s "${rel}" | xargs`
+  local rel="https://skyfalconua.github.io/pkgs/qrencode/VERSION"
+  local ver=`curl -sL "${rel}" | xargs`
   local pkg="https://skyfalconua.github.io/pkgs/qrencode/qrencode-${ver}-$(uname -m)"
 
   curl -sL  "${pkg}" > "${dotbin}/qrencode" && \
