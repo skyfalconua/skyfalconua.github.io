@@ -12,10 +12,14 @@ _yazifetch() {
 
   local rel="https://skyfalconua.github.io/pkgs/yazi/VERSION"
   local ver=`curl -sL "${rel}" | xargs`
-  local pkg="https://skyfalconua.github.io/pkgs/yazi/yazi-${ver}-$(uname -m)-${bin}${exe}"
 
-  curl -sL  "${pkg}" > "${dotbin}/yazi${exe}" && \
-  chmod 755 "${dotbin}/yazi${exe}" && \
-  echo "created ${dotbin}/yazi${exe} (v${ver})"
+  for util in 'ya' 'yazi'; do
+    local pkg="https://skyfalconua.github.io/pkgs/yazi/${util}-${ver}-$(uname -m)-${bin}${exe}"
+    local outfile=""${dotbin}/${util}${exe}""
+
+    curl -sL  "${pkg}" > "${outfile}" && \
+    chmod 755 "${outfile}" && \
+    echo "created ${outfile} (v${ver})"
+  done
 }
 _yazifetch; unset _yazifetch
