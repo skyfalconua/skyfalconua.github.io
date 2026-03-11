@@ -2,9 +2,9 @@
 _qrencodefetch() {
   local dotbin="$HOME/.dotfiles/bin"
 
-  local rel="https://skyfalconua.github.io/pkgs/qrencode/VERSION"
+  local rel="https://skyfalconua.github.io/pkgs/static-builds/qrencode/VERSION"
   local ver=`curl -sL "${rel}" | xargs`
-  local pkg="https://skyfalconua.github.io/pkgs/qrencode/qrencode-${ver}-$(uname -m)"
+  local pkg="https://skyfalconua.github.io/pkgs/static-builds/qrencode/qrencode-${ver}-$(uname -m)"
 
   curl -sL  "${pkg}" > "${dotbin}/qrencode" && \
   chmod 755 "${dotbin}/qrencode" && \
