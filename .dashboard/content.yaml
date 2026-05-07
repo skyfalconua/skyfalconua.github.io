@@ -105,13 +105,16 @@ right_column:
           path: snippets/tree/main/apps/wschat
           description: Simple WebSocket-based chat application
 
-    - name: My Libriries frameworks
+    - name: My Libraries / Frameworks
       icon: library
       opened: true
       links:
         - name: libmyserver.sh
           path: libmyserver.sh
           description: Lightweight Bash library for server manangment and
+        - name: libopenwrt.sh
+          path: snippets/tree/main/other/opewrt
+          description: Modular OpenWrt config
         - name: django-template-project
           path: django-template-project
           description: Django project template with common configurations and structure
@@ -182,11 +185,11 @@ right_column:
           path: micro
           description: Pre-compiled Micro editor binaries and setup
         - name: neovim
-          path: neovim
+          path: static-builds/neovim
           description: Pre-compiled Neovim editor binaries and configuration
         - name: helix
           path: helix
           description: Pre-compiled Helix editor binaries for multiple architectures
         - name: qrencode
-          path: qrencode
+          path: static-builds/qrencode
           description: QR code encoding utility
