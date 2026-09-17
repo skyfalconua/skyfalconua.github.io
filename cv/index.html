@@ -1,16 +1,223 @@
 <!DOCTYPE html><script>
+  /* Mode switching via ?mode=pdf or ?mode=web. Scale for PDF - 72% */
   const mode = new URLSearchParams(window.location.search).get("mode") || "web";
   document.documentElement.classList.add(`mode-${mode}`);
-</script> <html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v6.1.9"><title>CV</title><style>@import"https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800;900&display=swap";@import"https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap";*{margin:0;padding:0;box-sizing:border-box}html{font-size:12px;print-color-adjust:exact}body{padding:48px;color:#444;font-family:Inter,Noto Sans SC,sans-serif;font-size:1.6rem;font-weight:400;line-height:1.5;margin:auto;font-style:normal}h1,h2,h3,h4,h5,h6{font-family:Inter,Noto Sans SC,sans-serif;color:#222;margin-top:.5em}h1{font-size:4rem;font-weight:800;text-align:left}h2{font-size:2.4rem;font-weight:600;border-bottom:3px solid #ddd;position:relative;text-transform:uppercase;margin-top:1em}h2:before{content:"";position:absolute;left:0;bottom:-3px;width:96px;height:5px;background-color:#016ef1}h3{font-size:2rem;font-weight:600;color:#01397e;margin-top:.5em}h4,h5,h6{font-size:1.8rem;font-weight:600;margin-top:.4em}b,strong{font-weight:600}h1 b,h1 strong{font-weight:900}h2 b,h2 strong,h3 b,h3 strong,h4 b,h4 strong,h5 b,h5 strong,h6 b,h6 strong,a b,a strong{font-weight:800}i,em{font-style:italic;font-weight:500}a{color:#222;font-weight:600;text-decoration:underline}ul,ol{margin-top:.5em;padding-left:12px;list-style:none}ul li{position:relative;margin-top:.2em}ul li:before{content:"•";position:absolute;left:-12px;color:#016ef1;font-weight:600;font-family:Inter}p{margin-top:.5em}p.pull-right{float:right;margin-right:4px;margin-top:-1.5em;text-align:right}code{background-color:#016ef133;border-radius:2px;padding:0 4px;font-weight:500;color:#222;font-family:inherit}pre{font-family:inherit}pre code{display:block}table{margin-top:.5em;table-layout:fixed;width:100%}table th,table tr{font-weight:400}table.no-margin{margin:0!important}img{border-radius:4px;float:left;height:10rem;margin-right:2rem}.page-break{margin:2em 0;border-top:1px dashed #aaa;border-bottom:1px dashed #aaa;text-align:center}.page-break:before{content:"Page Break";color:#aaa;display:block}hr{border:none;border-top:2px solid #ddd;margin:1em 0}::selection,::-moz-selection{background-color:#016ef133}@media print{.no-print{display:none}}.only-pdf,.only-web{display:none}.mode-pdf .only-pdf,.mode-web .only-web{display:block}.tags{margin:.5em 0}.tags ul{display:inline;padding:0}.tags li{display:inline-block;background-color:#016ef126;border-radius:4px;color:#222;font-weight:500;padding:1px 4px;margin-right:1px}.tags li:before{display:none}.row.row--section{display:flex}.row.row--section .column.column--1-1{flex:100%}.row.row--section .column.column--1-2{flex:66%;padding-right:3rem}.row.row--section .column.column--2-2{flex:34%;padding-left:3rem}.h3-like{color:#01397e}
-</style></head> <body>  <div class="row row--section"> <div class="column column--1-1"> <h1><strong>Andrew Sokolov</strong></h1> <p>Senior Full-Stack Software Engineer</p> <p> <a href="https://www.linkedin.com/in/skyfalconua">https://www.linkedin.com/in/skyfalconua</a>
+</script> <html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v6.1.9"><title>CV</title><style data-vite-dev-id="/Users/andrew/Projects/work/cv/src/layouts/Layout.astro?astro&#38;type=style&#38;index=0&#38;lang.css">@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap");
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  font-size: 12px; /* base font size */
+  print-color-adjust: exact;
+}
+body {
+  padding: 48px;
+  color: #444;
+  font-family: "Inter", "Noto Sans SC", sans-serif;
+  font-size: 1.6rem;
+  font-weight: normal;
+  line-height: 1.5;
+  margin: auto;
+  font-style: normal;
+}
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Inter", "Noto Sans SC", sans-serif;
+  color: #222;
+  margin-top: 0.5em;
+}
+h1 {
+  font-size: 4rem;
+  font-weight: 800;
+  text-align: left;
+}
+h2 {
+  font-size: 2.4rem;
+  font-weight: 600;
+  border-bottom: 3px solid #ddd;
+  position: relative;
+  text-transform: uppercase;
+  margin-top: 1em;
+}
+h2:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 96px;
+  height: 5px;
+  background-color: #016ef1;
+}
+h3 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #01617e;
+  margin-top: 0.5em;
+}
+h4, h5, h6 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-top: 0.4em;
+}
+/* Text formatting */
+b, strong {
+  font-weight: 600;
+}
+h1 b, h1 strong { font-weight: 900; }
+h2 b, h2 strong,
+h3 b, h3 strong,
+h4 b, h4 strong,
+h5 b, h5 strong,
+h6 b, h6 strong,
+a b, a strong { font-weight: 800; }
+i, em {
+  font-style: italic;
+  font-weight: 500;
+}
+a {
+  color: #222;
+  font-weight: 600;
+  text-decoration: underline;
+}
+/* Lists */
+ul, ol {
+  margin-top: 0.5em;
+  padding-left: 12px;
+  list-style: none;
+}
+ul li {
+  position: relative;
+  margin-top: 0.2em;
+}
+ul li:before {
+  content: "•";
+  position: absolute;
+  left: -12px;
+  color: #016ef1;
+  font-weight: 600;
+  font-family: "Inter";
+}
+/* Paragraphs */
+p {
+  margin-top: 0.5em;
+}
+p.pull-right {
+  float: right;
+  margin-right: 4px;
+  margin-top: -1.5em;
+  text-align: right;
+}
+/* Code & Pre */
+code {
+  background-color: rgba(1, 110, 241, 0.2);
+  border-radius: 2px;
+  padding: 0 4px;
+  font-weight: 500;
+  color: #222;
+  font-family: inherit;
+}
+pre {
+  font-family: inherit;
+}
+pre code {
+  display: block;
+}
+/* Tables */
+table {
+  margin-top: 0.5em;
+  table-layout: fixed;
+  width: 100%;
+}
+table th, table tr {
+  font-weight: normal;
+}
+table.no-margin {
+  margin: 0 !important;
+}
+/* Images */
+img {
+  border-radius: 4px;
+  float: left;
+  height: 10rem;
+  margin-right: 2rem;
+}
+/* Page break */
+.page-break {
+  margin: 2em 0;
+  border-top: 1px dashed #aaa;
+  border-bottom: 1px dashed #aaa;
+  text-align: center;
+}
+.page-break:before {
+  content: "Page Break";
+  color: #aaa;
+  display: block;
+}
+/* Misc */
+hr {
+  border: none;
+  border-top: 2px solid #ddd;
+  margin: 1em 0;
+}
+::selection, ::-moz-selection {
+  background-color: rgba(1, 110, 241, 0.2);
+}
+@media print {
+  .no-print { display: none; }
+}
+/* Mode switching via ?mode=pdf or ?mode=web */
+.only-pdf, .only-web { display: none; }
+.mode-pdf .only-pdf { display: block; }
+.mode-web .only-web { display: block; }
+/* Tags */
+.tags {
+  margin: 0.5em 0;
+}
+.tags ul {
+  display: inline;
+  padding: 0;
+}
+.tags li {
+  display: inline-block;
+  background-color: rgba(1, 110, 241, 0.11);
+  border-radius: 4px;
+  color: #222;
+  font-weight: 500;
+  padding: 1px 4px;
+  margin-right: 1px;
+}
+.tags li::before {
+  display: none;
+}
+/* Row/column layout */
+.row.row--section {
+  display: flex;
+}
+.row.row--section .column.column--1-1 { flex: 100%; }
+.row.row--section .column.column--1-2 { flex: 66%; padding-right: 3rem; }
+.row.row--section .column.column--2-2 { flex: 34%; padding-left: 3rem; }
+/* Small helper */
+.h3-like { color: #01397e; }</style><script type="module" src="/@vite/client"></script>
+<script type="module" src="/src/layouts/Layout.astro?astro&type=style&index=0&lang.css"></script></head> <body>  <div class="row row--section"> <div class="column column--1-1"> <h1><strong>Andrew Sokolov</strong></h1> <p>Senior Full-Stack Software Engineer</p> <p> <a href="https://www.linkedin.com/in/skyfalconua">https://www.linkedin.com/in/skyfalconua</a>
 &nbsp; | &nbsp;
 <a href="https://github.com/skyfalconua">https://github.com/skyfalconua</a> <span class="no-print">
 &nbsp; | &nbsp;
-<a href="https://github.com/skyfalconua/cv/blob/main/output/CV-Andrew-Sokolov.pdf">PDF version</a> </span> </p> <h2>Summary</h2> <p>Software Developer with 15 years of experience designing, building, and delivering
-        scalable web applications across Software Development, Advertising, Automotive,
-        Mobile Entertainment, Fintech, AgenticAI and GenAI domains.</p> <p>Skilled in Python, Django, Kotlin, JavaScript, Angular and React with strong expertise
-        in unit and end-to-end test automation, Docker-based DevOps workflows, server administration,
-        and applying architectural best practices within large distributed teams.</p> <h2>Work Experience</h2> <!-----------------------------------------------------------------------> <h3>Capgemini Engineering (ex. Lohika Systems)</h3> <p class="pull-right"><em>Kyiv, Ukraine</em></p> <p class="h3-like"><strong>Seniour Full-stack Engineer</strong></p> <p class="pull-right"><em>Apr 2021 - Present</em></p> <h4>Technologies used:</h4> <div class="tags"> <p><ul><li>Python</li>
+<a href="https://github.com/skyfalconua/cv/blob/main/output/CV-Andrew-Sokolov.pdf">PDF version</a> </span> </p> <h2>Summary</h2> <p>15 years of software development experience, with deep expertise in Angular/React and
+          strong Python/Kotlin backend skills.</p> <p>Solid Python background covering multithreaded and asyncio-based concurrent systems,
+          WebSocket-driven real-time services, caching strategies, and shared-state performance
+          optimization across high-traffic backend services.</p> <p>Extensive hands-on experience with Angular internals — including custom HTTP client adapters
+          replicating legacy $http behavior, functional DSLs for multi-level nested object validation,
+          dependency injection patterns, locale customization, and leading large-scale
+          Angular 1 → 2+ migrations as a core team member.</p> <p>Also experienced as a Full-Stack Django/JS developer and within multi-domain
+          Kotlin/Python/React environments, and a scalable Docker-based configuration approach
+          for front-end apps. Recent work includes Agentic AI and GenAI projects for code migration
+          and Jira automation.</p> <p>Broad exposure across BE/FE development, software architecture, QA automation, and
+          DevOps practices, on large multi-team distributed projects spanning Advertising, Automotive,
+          Mobile Entertainment, GenAI and FinTech.</p> <h2>Work Experience</h2> <!-----------------------------------------------------------------------> <h3>Capgemini Engineering (ex. Lohika Systems)</h3> <p class="pull-right"><em>Kyiv, Ukraine</em></p> <p class="h3-like"><strong>Seniour Full-stack Engineer</strong></p> <p class="pull-right"><em>Apr 2021 - Present</em></p> <h4>Technologies used:</h4> <div class="tags"> <p><ul><li>Python</li>
 <li>Kotlin</li>
 <li>Kubernetes</li>
 <li>React</li>
@@ -19,10 +226,17 @@
 <li>React.js</li>
 <li>Microsoft Agentic Framework</li>
 <li>AWS Strands</li>
-<li>NodeJs / Angular</li></ul></p> </div> <h4>Projects:</h4> <p><ul><li>Worked on refactoring and maintaining a Python/React/Kotlin FinTech platform,</li></ul>
-improving stability and code quality.</p>
-<p><ul><li>Was involved in a NodeJS/React project, contributing to both FE and BE development.</li></ul></p>
-<p><ul><li>PoC of custom AI agent for Jira automatiom and AI-assisted code migration</li></ul></p> <!-----------------------------------------------------------------------> <hr> <!-----------------------------------------------------------------------> <h3>EPAM</h3> <p class="pull-right"><em>Kyiv, Ukraine</em></p> <p class="h3-like"><strong>Lead Software Engineer</strong></p> <p class="pull-right"><em>Sep 2020 - Apr 2021</em></p> <p class="h3-like"><strong>Senior Software Engineer</strong></p> <p class="pull-right"><em>Oct 2019 - Sep 2020</em></p> <h4>Technologies used:</h4> <div class="tags"> <p><ul><li>Angular</li>
+<li>NodeJs / Angular</li></ul></p> </div> <h4>Projects:</h4> <p><strong>1.</strong>
+Contributed to a fintech platform across multiple sub-teams and domains,
+including loan processing and an administrative web application for
+financial agents. Built using Python, Kotlin, and React.</p>
+<p><strong>2.</strong>
+Delivered an internal tool built on NodeJS and React, covering both
+front-end and back-end development.</p>
+<p><strong>3.</strong>
+Designed and implemented an internal custom AI agent for automating Jira workflows.</p>
+<p><strong>4.</strong>
+PoC for AI-assisted migration of legacy PHP code to NodeJS/Angular.</p> <!-----------------------------------------------------------------------> <hr> <!-----------------------------------------------------------------------> <h3>EPAM</h3> <p class="pull-right"><em>Kyiv, Ukraine</em></p> <p class="h3-like"><strong>Lead Software Engineer</strong></p> <p class="pull-right"><em>Sep 2020 - Apr 2021</em></p> <p class="h3-like"><strong>Senior Software Engineer</strong></p> <p class="pull-right"><em>Oct 2019 - Sep 2020</em></p> <h4>Technologies used:</h4> <div class="tags"> <p><ul><li>Angular</li>
 <li>Webpack</li>
 <li>HTML/CSS</li>
 <li>Gulp</li>
@@ -30,7 +244,13 @@ improving stability and code quality.</p>
 <li>Node.js</li>
 <li>Sass</li>
 <li>Jenkins</li>
-<li>Preact</li></ul></p> </div> <h4>Projects:</h4> <p>Senior Angular Developer on corporate employer management portal with minor BE and DevOps fixes</p> <!-----------------------------------------------------------------------> <hr> <!-----------------------------------------------------------------------> <h3>Star (ex. Cogniance)</h3> <p class="pull-right"><em>Kyiv, Ukraine</em></p> <p class="h3-like"><strong>Frontend Engineer</strong></p> <p class="pull-right"><em>Jun 2015  -  Sep 2019</em></p> <h4>Technologies used:</h4> <div class="tags"> <p><ul><li>CanJS</li>
+<li>Preact</li></ul></p> </div> <div class="only-pdf"> <br> </div> <h4>Projects:</h4> <p>Employer services portal development for consumer credit reporting agency.
+Worked as Senior Angular Developer on corporate employer management portal.
+<ul><li>Simplified process of app login on the localhost dev server</li>
+<li>Implemented environment variables injection from Docker to Angular app</li>
+<li>Improved Jenkins pipeline script for FE apps</li>
+<li>Refactored core Angular components while preserving full backwards</li></ul>
+  compatibility, allowing incremental upgrades without breaking downstream consumers</p> <!-----------------------------------------------------------------------> <hr> <!-----------------------------------------------------------------------> <h3>Star (ex. Cogniance)</h3> <p class="pull-right"><em>Kyiv, Ukraine</em></p> <p class="h3-like"><strong>Frontend Engineer</strong></p> <p class="pull-right"><em>Jun 2015  -  Sep 2019</em></p> <h4>Technologies used:</h4> <div class="tags"> <p><ul><li>CanJS</li>
 <li>AngularJS</li>
 <li>Angular 2+</li>
 <li>Mysql</li>
@@ -40,18 +260,35 @@ improving stability and code quality.</p>
 <li>Asyncio</li>
 <li>Java/Spring</li>
 <li>Gulp</li>
-<li>Maven</li></ul></p> </div> <h4>Projects:</h4> <p>Developed car head-unit applications using the CanJS framework as part of an automotive project.
-Worked as a Front-End Developer in the core team of a large Angular-based advertising platform.
-Performed maintenance and bug-fix tasks on a Java/Spring back-end.</p> <!-----------------------------------------------------------------------> <div class="only-pdf"> <br> <br> <br> <br> </div> <hr class="only-web"> <!-----------------------------------------------------------------------> <h3>Ciklum</h3> <p class="pull-right"><em>Kyiv, Ukraine</em></p> <p class="h3-like"><strong>Python Engineer</strong></p> <p class="pull-right"><em>Jul 2014 - Apr 2015</em></p> <h4>Technologies used:</h4> <div class="tags"> <p><ul><li>Python</li>
+<li>Maven</li></ul></p> </div> <h4>Projects:</h4> <p><strong>-- Project 1: Front-end Developer in car head unit automotive project</strong>
+<ul><li>Developing head unit's JS applications</li>
+<li>Experienced in app performance tuning on low resource auto head unit device</li></ul></p>
+<p><strong>-- Project 2: Big advertisement media holding</strong>
+<ul><li>Engineered a custom HttpClient adapter that transparently replicated</li>
+  AngularJS's $http API on top of Angular 2+, enabling legacy calling
+  code to run unmodified during a large-scale migration — allowing a smooth,
+  incremental transition instead of a risky big-bang rewrite. Required deep
+  knowledge of Angular's dependency injection and HTTP client internals.
+<li>Core team member of a big Angular-based advertisement web application</li>
+<li>Development of core library, common layout, build process and common services</li>
+<li>Designed an FP-based DSL for validating deeply nested (4-level) object structures</li>
+<li>Implemented support of customization Angular locale</li>
+<li>Participated in migration of a huge Angular app to 2+ version, as part of</li>
+  the same adapter-driven, low-risk transition strategy
+<li>Minor bug fixing of Java/Spring app</li></ul></p>
+<p><strong>-- Project 3</strong>
+Built the asyncio and WebSocket-based backend for a web-based interactive
+workflow editor, handling real-time, bidirectional communication between
+the editor UI and backend state.</p> <!-----------------------------------------------------------------------> <hr> <!-----------------------------------------------------------------------> <h3>Ciklum</h3> <p class="pull-right"><em>Kyiv, Ukraine</em></p> <p class="h3-like"><strong>Python Engineer</strong></p> <p class="pull-right"><em>Jul 2014 - Apr 2015</em></p> <h4>Technologies used:</h4> <div class="tags"> <p><ul><li>Python</li>
 <li>CherryPy</li>
 <li>Fabric</li>
 <li>HTML/CSS</li>
 <li>Redis</li>
 <li>MySql</li>
 <li>Postgresql</li></ul></p> </div> <h4>Projects:</h4> <p><strong> - Mobile Entertainment GmbH </strong></p>
-<p>Worked as a Back-End Developer on a mobile paid video hosting service integrated
-with telecom billing. Focused on refactoring legacy code and delivering performance
-optimizations, including caching and multithreading optimizations.</p> <!-----------------------------------------------------------------------> <hr> <!-----------------------------------------------------------------------> <h3>OstinCompany / OstinGames</h3> <p class="pull-right"><em>Kyiv, Ukraine</em></p> <p class="h3-like"><strong>Python/Django Developer</strong></p> <p class="pull-right"><em>Jun 2013 - Jul 2014</em></p> <h4>Technologies used:</h4> <div class="tags"> <p><ul><li>Python/Django</li>
+<p>Backend developer on a mobile paid video hosting platform tied to a phone
+account. Implemented multithreaded caching and shared-state optimizations
+to improve performance under load, alongside refactoring of legacy code.</p> <!-----------------------------------------------------------------------> <div class="only-pdf"> <br> </div> <hr class="only-web"> <!-----------------------------------------------------------------------> <h3>OstinCompany / OstinGames</h3> <p class="pull-right"><em>Kyiv, Ukraine</em></p> <p class="h3-like"><strong>Python/Django Developer</strong></p> <p class="pull-right"><em>Jun 2013 - Jul 2014</em></p> <h4>Technologies used:</h4> <div class="tags"> <p><ul><li>Python/Django</li>
 <li>Tornado (for Websockets)</li>
 <li>JS</li>
 <li>JQuery</li>
@@ -60,11 +297,13 @@ optimizations, including caching and multithreading optimizations.</p> <!-------
 <li>CSS</li>
 <li>PostgreSQL</li>
 <li>Scrum</li></ul></p> </div> <h4>Projects:</h4> <p><strong> - AtticGem </strong></p>
-<p>Startup online auction platform for selling antiques, featuring modules for
-bidding and expert product appraisal. Worked primarily as the sole developer,
-handling both the back-end and an interactive front-end using AJAX and WebSockets,
-PayPal API for integration. Project was initially built using MongoDB
-and later migrated to PostgreSQL.</p> <!-----------------------------------------------------------------------> <hr> <!-----------------------------------------------------------------------> <h3>WebRiders</h3> <p class="pull-right"><em>Kyiv, Ukraine</em></p> <p class="h3-like"><strong>Python/Django Developer</strong></p> <p class="pull-right"><em>Feb 2011 - Jun 2013</em></p> <h4>Technologies used:</h4> <div class="tags"> <p><ul><li>Python</li>
+<p>Project-startup internet auction to sale of antiques. The site includes
+such modules: auction and products appraisal by experts. Most of the time
+worked the sole developer, except the html-coder and designer. Worked
+with back-end and interactive front-end with active use of AJAX and WebSocket.
+Was supporting the demo version of the project on the server. Project also
+used PayPal API. The project was written originally using MongoDB,
+but then was transferred to PostgreSQL.</p> <!-----------------------------------------------------------------------> <hr> <!-----------------------------------------------------------------------> <h3>WebRiders</h3> <p class="pull-right"><em>Kyiv, Ukraine</em></p> <p class="h3-like"><strong>Python/Django Developer</strong></p> <p class="pull-right"><em>Feb 2011 - Jun 2013</em></p> <h4>Technologies used:</h4> <div class="tags"> <p><ul><li>Python</li>
 <li>Django</li>
 <li>Haystack + Whoosh</li>
 <li>Selenium</li>
@@ -74,17 +313,21 @@ and later migrated to PostgreSQL.</p> <!----------------------------------------
 <li>HTML5</li>
 <li>CSS</li>
 <li>Google Charts</li>
-<li>Highcharts</li></ul></p> </div> <h4>Projects:</h4> <p><strong> - EnergyDeck.com </strong></p>
-<p>A UK platform for collecting and aggregating resource-consumption data
-(electricity, gas, water, etc.). Developed internal APIs and the front-end
-features built on top of them. Reporting module aggregates meter data and generated
-charts for costs, consumption, greenhouse gas output etc. Initially used Google Charts,
-later Highcharts.Handling incoming automated meters data.
-Unit and e2e tests (Selenium). Prod server administration.</p>
-<p><strong> - BiggggIdea </strong></p>
-<p>Ukrainian crowdfunding platform focused on social and community-driven projects.</p>
-<p><strong> - BogushTime Technologies </strong></p>
-<p>Company website for psychological training services.</p>
-<p><strong> - SemanticForce.net </strong></p>
-<p>Front-end for an analytics and social-monitoring service,
-plus a lightweight corporate website.</p> <!-----------------------------------------------------------------------> <h2>Education</h2> <h3>Open University of Human Development &quot;Ukraine&quot;</h3> <p class="pull-right"><em>September 2009 - July 2011</em></p> <p> <strong>Master of Engineering</strong>, <em>Kyiv, Ukraine</em> </p> <h3>College of IT and the land management</h3> <p class="pull-right"><em>September 2009 - July 2011</em></p> <p> <strong>Bachelor of Computer Science</strong>, <em>Kyiv, Ukraine</em> </p> </div> </div> </body></html>
+<li>Highcharts</li></ul></p> </div> <h4>Projects:</h4> <p><strong>-- Fabriq</strong> (<a href="https://fabriq.space">fabriq.space</a>)
+British site and service for collecting and consolidating information
+about consumption of resources (electricity, gas, water, etc.). Wrote
+internal APIs and front-end based on them.
+<ul><li>Reporting module that consolidates data from the meters and building plots</li>
+  with the total price during this period, the total consumption, greenhouse
+  gas, year-over-year comparison data. Used Google Charts, later Highcharts
+<li>Modules that import from automated meters, and export data as well</li>
+<li>Tariff plans system, allowing functions to be enabled in certain tariff plans</li>
+<li>Unit-tests and integration tests (Selenium)</li>
+<li>Small server administration tasks</li></ul></p>
+<p><strong>-- Big Idea</strong> (<a href="https://biggggidea.com/">biggggidea.com</a>)
+Ukrainian crowd-funding platform focused on social projects.</p>
+<p><strong>-- BogushTime Technologies</strong>
+Site of the company provided psychological trainings. Worked on simple tasks,
+as well as implementation of trivial shop accessories with payment via an aggregator.</p>
+<p><strong>-- SemanticForce.net</strong>
+Site-frontend for analysts and social monitoring networks. Small corporate website.</p> <!-----------------------------------------------------------------------> <h2>Education</h2> <h3>Open University of Human Development &quot;Ukraine&quot;</h3> <p class="pull-right"><em>September 2009 - July 2011</em></p> <p> <strong>Master of Engineering</strong>, <em>Kyiv, Ukraine</em> </p> <h3>College of IT and the land management</h3> <p class="pull-right"><em>September 2009 - July 2011</em></p> <p> <strong>Bachelor of Computer Science</strong>, <em>Kyiv, Ukraine</em> </p> </div> </div> </body></html>
