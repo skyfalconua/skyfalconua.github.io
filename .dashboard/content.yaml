@@ -104,6 +104,9 @@ right_column:
         - name: wschat
           path: snippets/tree/main/apps/wschat
           description: Simple WebSocket-based chat application
+        - name: Llamaindex CV Profiles
+          path: llamaindex-cv-profiles
+          description: Playground app with LLM, RAG and SpecDriven Development
 
     - name: My Libraries / Frameworks
       icon: library
