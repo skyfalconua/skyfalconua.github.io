@@ -1,6 +1,7 @@
 #!/bin/sh
 _neovimstaticfetch() {
   local dotbin="$HOME/.dotfiles/bin"
+  mkdir -p "${dotbin}"
 
   local rel="https://skyfalconua.github.io/pkgs/static-builds/neovim/VERSION"
   local ver=`curl -sL "${rel}" | xargs`

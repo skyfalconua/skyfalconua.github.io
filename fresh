@@ -1,0 +1,17 @@
+#!/bin/sh
+_freshfetch() {
+  local dotbin="$HOME/.dotfiles/bin"
+  mkdir -p "${dotbin}"
+
+  local rel="https://api.github.com/repos/sinelaw/fresh/releases/latest"
+  local ver=`curl -s "${rel}" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/' | tr -d 'v'`
+  local pkgname="fresh-editor-$(uname -m)-unknown-linux-musl"
+  local pkgurl="https://github.com/sinelaw/fresh/releases/download/v${ver}/${pkgname}.tar.gz"
+
+  curl -sL  "${pkgurl}" | tar xz -C . && \
+  mv -f ./${pkgname}/fresh ${dotbin}/fresh && \
+  chmod 755 ${dotbin}/fresh && \
+  rm -rf ${pkgname} && \
+  echo "created ${dotbin}/fresh (v${ver})"
+}
+_freshfetch; unset _freshfetch

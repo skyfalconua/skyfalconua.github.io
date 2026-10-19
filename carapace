@@ -1,6 +1,7 @@
 #!/bin/sh
 _carapacefetch() {
   local dotbin="$HOME/.dotfiles/bin"
+  mkdir -p "${dotbin}"
 
   local arch=""
   case "$(uname -m)" in

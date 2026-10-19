@@ -1,6 +1,7 @@
 #!/bin/sh
 _fdfindfetch() {
   local dotbin="$HOME/.dotfiles/bin"
+  mkdir -p "${dotbin}"
 
   local rel="https://api.github.com/repos/sharkdp/fd/releases/latest"
   local ver=`curl -s "${rel}" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/' | tr -d 'v'`

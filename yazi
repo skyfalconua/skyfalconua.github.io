@@ -1,6 +1,7 @@
 #!/bin/sh
 _yazifetch() {
   local dotbin="$HOME/.dotfiles/bin"
+  mkdir -p "${dotbin}"
 
   local bin=""
   local exe=""

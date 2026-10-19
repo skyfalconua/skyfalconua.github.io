@@ -1,6 +1,7 @@
 #!/bin/sh
 _gitdeltafetch() {
   local dotbin="$HOME/.dotfiles/bin"
+  mkdir -p "${dotbin}"
 
   local arch=""
   case "$(uname -m)" in

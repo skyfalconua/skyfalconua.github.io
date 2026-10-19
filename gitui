@@ -1,6 +1,7 @@
 #!/bin/sh
 _gituifetch() {
   local dotbin="$HOME/.dotfiles/bin"
+  mkdir -p "${dotbin}"
 
   local pkgname=""
   local exe=""
