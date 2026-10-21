@@ -3,7 +3,7 @@ _dotfilessetup() {
   git -C "$HOME/.dotfiles" pull 2>/dev/null || \
   git clone https://github.com/skyfalconua/dotfiles.git ~/.dotfiles && \
   echo 'source ~/.dotfiles/zsh/init.zsh' > ~/.zshrc && \
-  touch ~/.dotfiles/zsh/_local.zsh && \
+  touch ~/.dotfiles/.local/_local.zsh && \
   cd ~/.dotfiles/configs && \
   bash setup-base.sh && \
   cd && \
