@@ -86,6 +86,9 @@ right_column:
       icon: application
       opened: true
       links:
+        - name: gitdiff-html
+          path: gitdiff-html
+          description: Utility to render a unified git diff as a single self-contained HTML page
         - name: localzoo
           path: localzoo
           description: Utility to run multiple microservices at localhost alongside with proxy
